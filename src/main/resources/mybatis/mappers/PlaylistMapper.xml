@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="PlaylistMapper">
+
+    <resultMap id="playlistMap" type="com.kh.mango.playlist.domain.FollowPlaylist">
+        <id property="userNo" column="USER_NO"/>
+        <result property="userName" column="USER_NAME"/>
+        <result property="playlistSong" column="PLAYLIST_SONG"/>
+        <result property="playlistArtist" column="PLAYLIST_ARTIST"/>
+    </resultMap>
+
+    <insert id="addPlaylist">
+        INSERT INTO PLAYLIST_TBL VALUES(#{userNo},#{playlistSong},#{playlistArtist})
+    </insert>
+
+    <select id="showMyPlaylist" resultType="com.kh.mango.playlist.domain.PlayList">
+        SELECT * FROM PLAYLIST_TBL WHERE USER_NO= #{userNo}
+    </select>
+
+    <select id="showFollowPlaylist" resultMap="playlistMap">
+        SELECT U.USER_NAME, P.PLAYLIST_SONG, P.PLAYLIST_ARTIST FROM PLAYLIST_TBL P JOIN USER_TBL U ON P.USER_NO = U.USER_NO WHERE P.USER_NO= #{userNo}
+    </select>
+
+    <delete id="deletePlaylist">
+        DELETE FROM PLAYLIST_TBL WHERE PLAYLIST_ARTIST = #{playlistArtist} AND PLAYLIST_SONG = #{playlistSong} AND USER_NO= #{userNo}
+    </delete>
+
+
+</mapper>

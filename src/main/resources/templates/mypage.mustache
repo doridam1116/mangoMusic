@@ -1,0 +1,255 @@
+{{>layouts/sidebar}}
+{{#loginUser}}
+    <link rel="stylesheet" href="/myPageStyle.css">
+    <script>
+        $(document).ready(function () {
+            loadingChatRoom();
+        });
+    </script>
+    <!-- sidebar -->
+    <main class="body" id="body-mypage">
+        <nav class="navbar sticky-top mb-3" id="navbar-mypage">
+            <div class="d-flex align-items-center justify-content-between" id="d-flex-mypage">
+                <div class="d-flex"></div>
+                <!-- <i class="fa-solid fa-chevron-left chevrons"></i><i class="fa-solid fa-chevron-right chevrons"></i> -->
+            </div>
+            <!--        <button onclick="test111()" value="asdasd" style="width: 30px;height: 30px;"></button>-->
+            <div class="d-flex align-items-center" id="rightnav">
+                <button type="button" class="modify-btn"></button>
+
+                <div style="margin-right: 1rem; display: flex" class="message">
+
+                    <div class="msg-area" id="msg-box">
+                        <div class="msg-user-list-box" style=" float: left;">
+                            <div class="msg-user-list">
+                                <ul class="msg-user-list-ul">
+                                </ul>
+                            </div>
+                            <div class="new-msg-btn">새로운 메시지</div>
+                        </div>
+                        <div class="msg-content-box">
+                            <div class="msg-box">
+
+                            </div>
+
+                        </div>
+                        <div class="msg-input-box" style="display: inline-block; flex-direction: row;float:left;">
+                            <div class="in"
+                                 style=" height: 100%; width: 495px; background-color: #F2F3F5;  float:left;">
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="msg-toggle-btn" id="msg-btn" onclick="msgToggle();"></button>
+                </div>
+                <div class="dropdown" id="myPageDropDown">
+                    <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1"
+                            data-bs-toggle="dropdown" aria-expanded="false" style="border-radius: 25px;">
+                        <!-- 유저 이미지 -->
+                        {{#loginUser.userFilename}}
+                            <img src="{{loginUser.userFilename}}"
+                                 style="width: 30px; height: 30px; border-radius: 50%" class="dropdown-pic"/>
+                        {{/loginUser.userFilename}}
+                        {{^loginUser.userFilename}}
+                            <img src="../img/abstract-user-flat-3.svg"
+                                 style="width: 30px; height: 30px; border-radius: 50%" class="dropdown-pic"/>
+                        {{/loginUser.userFilename}}
+                        <!-- 유저이름 -->
+                        &nbsp;&nbsp;{{loginUser.userName}}&nbsp;&nbsp;
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href="/mypage">마이페이지</a></li>
+                        <li><a class="dropdown-item" href="/logout">로그아웃</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="margin-top">
+            <h2 class="greeting mb-3">MyPage</h2>
+            <div class="profile">
+                <div class="profile-modal">
+                    <div class="profile-modal-body">
+                        <div class="profile-modal_close"></div>
+                        {{#loginUser.userFilename}}
+                            <img class="upload-pic-miri" src="{{loginUser.userFilename}}">
+                        {{/loginUser.userFilename}}
+                        {{^loginUser.userFilename}}
+                            <img class="upload-pic-miri" src="img/abstract-user-flat-3.svg">
+                        {{/loginUser.userFilename}}
+                        <label for="file">
+                            <div class="upload-btn">사진 찾기</div>
+                        </label>
+                        <input type="file" name="file" style="display: none" id="file">
+
+                    </div>
+                    <button type="button" class="upload-btn" id="upload-btn-id" onclick="fn_submit();">업로드</button>
+                </div>
+                {{#loginUser.userFilename}}
+                    <div class="profile-img" style="background-image: url('{{loginUser.userFilename}}')"></div>
+                {{/loginUser.userFilename}}
+                {{^loginUser.userFilename}}
+                <div class="profile-img" ></div>
+                {{/loginUser.userFilename}}
+                <!--             닉네임 들어갈곳-->
+                <input type="hidden" value="{{loginUser.userNo}}" id="userNo">
+                <div class="profile-name"><h1 class="profile-name-h1">{{loginUser.userName}}</h1></div>
+                <div class="profile-letter"><span
+                        class="profile-letter-span">{{#loginUser.userProfileLetter}}{{{loginUser.userProfileLetter}}}{{/loginUser.userProfileLetter}}</span>
+                </div>
+            </div>
+        </div>
+
+    <div class="margin-top" id="mypage-content-container">
+        <div class="mypage-content-left">
+            <div class="point">
+                <!--                 포인트 값-->
+                <input type="hidden" value="{{loginUser.pointVal}}" class="point-val" id="point-val-current">
+                <span class="point-value"><span class="point-val-re"></span> <span class="point-value-text">Mango</span></span>
+            </div>
+            <!-- 충전 모달 -->
+            <div class="point-button-container">
+                <div id="my_modal" class="my_modal_all">
+                    <h2 style="color:white;">포인트 충전</h2>
+                    <br>
+                    <input type="text" name="pointVal" id="point-add-input"
+                           style="width: 300px; height: 50px;border-radius: 20px;">
+                    <div id="button-area">
+                        <input type="button" value="충전" class="add-btn" id="add-btn-sub" onclick="pointAddFunc()">
+                        <button type="button" id="modal_close_btn" class="add-btn">닫기</button>
+                    </div>
+                </div>
+
+                <!--            출금모달    -->
+                <div id="my_modal-2" class="my_modal_all">
+                    <h2 style="color:white;">포인트 출금</h2>
+                    <br>
+                    <input type="text" name="pointVal" id="point-refund-input"
+                           style="width: 300px; height: 50px;border-radius: 20px;">
+                    <div id="button-area">
+                        <input type="button" value="출금" class="add-btn" id="add-btn-sub" onclick="pointRefundFunc()">
+                        <button type="button" id="modal_close_btn" class="add-btn">닫기</button>
+                    </div>
+                </div>
+
+                <!-- 출금 모달 끝 -->
+                <button id="popup_open_btn" class="point-button">충전</button>
+                <button id="popup_open_btn-2" class="point-button">출금</button>
+            </div>
+        </div>
+    <div class="mypage-content-right">
+
+        <!--            팔로우 검색 버튼-->
+    <div id="Accordion_wrap">
+        <div class="que">
+
+            <span>팔로우 목록</span>
+            <div class="arrow-wrap">
+                <span class="arrow-top">-</span>
+                <span class="arrow-bottom">+</span>
+            </div>
+        </div>
+
+        <div class="anw">
+            <button type="button" onclick="window.open('/userSearch','','top=0, left=700, width=500, height=600')">
+                검색
+            </button>
+            <table>
+                <tr>
+                    <th>이름</th>
+                </tr>
+                {{#followers}}
+                    <tr>
+                        <td style="cursor: pointer" onclick="location.href='/followerPage?userNo={{userNo}}'">{{userName}}</td>
+                    </tr>
+                {{/followers}}
+            </table>
+
+        </div>
+        <div class="que">
+            <span>거래목록</span>
+            <div class="arrow-wrap">
+                <span class="arrow-top">-</span>
+                <span class="arrow-bottom">+</span>
+            </div>
+        </div>
+        <div class="anw">
+            <table>
+                <tr>
+                    <th>구분</th>
+                    <th>번호</th>
+                    <th>시간</th>
+                    <th>가격</th>
+                </tr>
+                {{#deals}}
+                    <tr>
+                        <td>{{dealType}}</td>
+                        <td>{{TradeNo}}</td>
+                        <td>{{dealDate}}</td>
+                        <td>{{dealPrice}}</td>
+                    </tr>
+                {{/deals}}
+            </table>
+        </div>
+        <div class="que">
+            <span>좋아요 목록</span>
+            <div class="arrow-wrap">
+                <span class="arrow-top">-</span>
+                <span class="arrow-bottom">+</span>
+            </div>
+        </div>
+        <div class="anw">
+            <table>
+                <tr>
+                    <th>제목</th>
+                    <th>가수</th>
+                </tr>
+                <tr>
+                    {{#likes}}
+                        <input type="hidden" value="{{musicMbid}}" id="likeTag">
+                        <td id="songName" style="width: 200px"></td>
+                        <td id="songArtist"></td>
+                    {{/likes}}
+                </tr>
+            </table>
+        </div>
+        <div class="que">
+            <span>포인트 충전 내역</span>
+            <div class="arrow-wrap">
+                <span class="arrow-top">-</span>
+                <span class="arrow-bottom">+</span>
+            </div>
+        </div>
+    <div class="anw">
+    <table>
+{{/loginUser}}
+{{#pointRecord}}
+        <tr>
+            <td style="width: 100px">{{pointPM}}
+            <td style="width: 300px; height: 40px">{{pointRecordDate}}
+            <td class="pointRecord-val-re"><span> Mango</span>
+        </tr>
+        <input type="hidden" value="{{pointRecord}}" class="pointRecord-val">
+{{/pointRecord}}
+
+
+</table>
+</div>
+</div>
+</div>
+
+</div>
+</main>
+<script src="mypage.js"></script>
+<script src="message.js"></script>
+{{#loginUser}}
+    {{>layouts/footer}}
+{{/loginUser}}
+{{^loginUser}}
+    <script>
+        $(document).ready(function () {
+            alert("로그인이 필요합니다.")
+            window.location.replace("http://localhost:8985/login");
+        });
+        var str = "/reply/Remove.bld?replyNo=" + replyNo + "&noticeNo="${notice.noticeNo}
+
+    </script>
+{{/loginUser}}

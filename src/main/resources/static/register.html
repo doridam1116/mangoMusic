@@ -3,12 +3,17 @@
   <head>
       <meta charset="UTF-8">
       <title>회원가입</title>
-      <link rel="stylesheet" href="css/register.css" />
+      <link rel="stylesheet" href="register.css" />
   </head>
   <body>
+      <a class="main-logo" href="index.html">
+          <div class="text-light heading d-flex align-items-center justify-content-flex-start mt-3">
+              <i class="fa-regular fa-mango mx-3 p-1"></i> Mango Music
+          </div>
+      </a>
       <div class="register-box">
           <h2>회원가입</h2>
-          <form method="post" action="#" id="register-form">
+          <form method="post" action="/register.do" id="register-form">
               <div class="user-box">
                   <label>ID</label>
                   <input type="text" class="register" name="userId" placeholder="ID를 입력해주세요.">
@@ -27,21 +32,21 @@
               </div>
               <div class="user-box">
                   <label>GENDER</label>
-                  <input type="radio" name="genger" class="gender" value="M">남성
-                  <input type="radio" name="genger" class="gender" value="F">여성
+                  <input type="radio" name="userGender" class="gender" value="남">남성
+                  <input type="radio" name="userGender" class="gender" value="여">여성
               </div>
 <!--              <div class="register-submit">-->
 <!--                  <input type="submit" class="register-btn" value="가입하기">-->
 <!--                  <input type="reset" class="register-btn" value="초기화">-->
 <!--              </div>-->
               <div id="register-btn">
-                  <a class="register-btn" href="#">
+                  <button type="submit" class="register-btn" location.href="'/login'">
                       <span></span>
                       <span></span>
                       <span></span>
                       <span></span>
                       가입하기
-                  </a>
+                  </button>
               </div>
           </form>
       </div>

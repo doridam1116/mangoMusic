@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="PointMapper">
+
+    <resultMap id="userMap" type="com.kh.mango.user.domain.User">
+        <id property="userNo" column="USER_NO"/>
+        <result property="userId" column="USER_ID"/>
+        <result property="userPw" column="USER_PW"/>
+        <result property="userName" column="USER_NAME"/>
+        <result property="userEmail" column="USER_EMAIL"/>
+        <result property="userGender" column="USER_GENDER"/>
+        <result property="userType" column="USER_TYPE"/>
+        <result property="userDate" column="USER_DATE"/>
+        <result property="userFilename" column="USER_FILENAME"/>
+        <result property="userFilepath" column="USER_FILEPATH"/>
+        <result property="userProfileLetter" column="USER_PROFILE_LETTER"/>
+<!--        <result property="pointRecord" column="PointRecordMap" />-->
+<!--        <collection property="pointRecord" resultMap="PointRecordMap"></collection>-->
+    </resultMap>
+
+    <resultMap id="PointRecordMap" type="com.kh.mango.point.domain.PointRecordMap">
+        <id property="userId" column="USER_ID"/>
+        <result property="pointPM" column="POINT_PM"/>
+        <result property="pointRecord" column="POINT_RECORD"/>
+        <result property="pointRecordDate" column="POINT_RECORD_DATE"/>
+    </resultMap>
+
+    <resultMap id="PointRecordListMap" type="com.kh.mango.point.domain.pointRecordList">
+    <id property="userId" column="USER_ID"/>
+    <result property="pointPM" column="POINT_PM"/>
+    <result property="pointRecord" column="POINT_RECORD"/>
+    <result property="pointRecordDate" column="POINT_RECORD_DATE"/>
+    </resultMap>
+
+    <update id="chargePoint">
+        UPDATE POINT_TBL SET POINT_VAL = POINT_VAL + #{pointVal} WHERE USER_NO = #{userNo}
+    </update>
+    <update id="refundPoint">
+        UPDATE POINT_TBL SET POINT_VAL = POINT_VAL - #{pointVal} WHERE USER_NO = #{userNo}
+    </update>
+    <insert id="insertChargePointRecord">
+        INSERT INTO POINT_RECORD_TBL VALUES(#{userNo},'충전',#{pointVal},SYSTIMESTAMP)
+    </insert>
+    <insert id="insertRefundPointRecord">
+        INSERT INTO POINT_RECORD_TBL VALUES(#{userNo},'출금',#{pointVal},SYSTIMESTAMP)
+    </insert>
+    <select id="addAllPoint" resultType="_int">
+        SELECT SUM(POINT_VAL) FROM POINT_TBL
+    </select>
+       <select id="AllPointRecordList" resultMap="PointRecordListMap">
+        SELECT U.USER_ID, P.POINT_PM, P.POINT_RECORD, P.POINT_RECORD_DATE FROM POINT_RECORD_TBL P JOIN USER_TBL U ON P.USER_NO = U.USER_NO ORDER BY P.POINT_RECORD_DATE DESC
+    </select>
+    <select id="selectPoint" resultType="com.kh.mango.point.domain.Point">
+        SELECT * FROM POINT_TBL WHERE USER_NO = ${userNo}
+    </select>
+</mapper>

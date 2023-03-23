@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>전체 포인트 내역</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+</head>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500&display=swap');
+
+    @font-face {
+        font-family: 'Pretendard-Regular';
+        src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+        font-weight: 400;
+        font-style: normal;
+    }
+    body {
+        color: #e8e8e8;
+        background-color: #201522;
+        font-family: 'Pretendard-Regular';
+        font-weight: lighter;
+    }
+
+    tr, td, th {
+        color: white;
+        font-family: 'Pretendard-Regular';
+    }
+</style>
+<body>
+<table class="table">
+    <tr>
+        <th>아이디</th>
+        <th>분류</th>
+        <th>금액</th>
+        <th>충전일시</th>
+    </tr>
+    {{#recordList}}
+    <tr>
+        <td>{{userId}}</td>
+        <td>{{pointPM}}</td>
+        <td>{{pointRecord}}</td>
+        <td>{{pointRecordDate}}</td>
+    </tr>
+    {{/recordList}}
+</table>
+</body>
+</html>

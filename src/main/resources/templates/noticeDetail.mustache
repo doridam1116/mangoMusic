@@ -1,0 +1,78 @@
+{{>layouts/sidebar}}
+<link rel="stylesheet" href="css/nDetail.css" />
+<main>
+    <nav class="navbar sticky-top mb-3" id="navbar-mypage">
+        <div class="d-flex align-items-center justify-content-between" id="d-flex-mypage">
+            <div class="d-flex"></div>
+            <!-- <i class="fa-solid fa-chevron-left chevrons"></i><i class="fa-solid fa-chevron-right chevrons"></i> -->
+        </div>
+
+        <div class="d-flex align-items-center" id="rightnav">
+            <div style="margin-right: 1rem">
+            </div>
+            {{#loginUser}}
+                <div class="dropdown" id="myPageDropDown">
+                    <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1"
+                            data-bs-toggle="dropdown" aria-expanded="false" style="border-radius: 25px;">
+                        <!-- 유저 이미지 -->
+                        {{#loginUser.userFilename}}
+                            <img src="{{loginUser.userFilename}}"
+                                 style="width: 30px; height: 30px; border-radius: 50%" class="dropdown-pic"/>
+                        {{/loginUser.userFilename}}
+                        {{^loginUser.userFilename}}
+                            <img src="../img/abstract-user-flat-3.svg"
+                                 style="width: 30px; height: 30px; border-radius: 50%" class="dropdown-pic"/>
+                        {{/loginUser.userFilename}}
+                        <!-- 유저이름 -->
+                        &nbsp;&nbsp;{{userName}}&nbsp;&nbsp;
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton1">
+                        {{#loginUser.userType}}
+                            <li><a class="dropdown-item" href="/admin">관리자페이지</a></li>
+                        {{/loginUser.userType}}
+                        {{^loginUser.userType}}
+                            <li><a class="dropdown-item" href="/mypage">마이페이지</a></li>
+                        {{/loginUser.userType}}
+                        <li><a class="dropdown-item" href="/logout">로그아웃</a></li>
+                    </ul>
+                </div>
+            {{/loginUser}}
+            {{^loginUser}}
+                <button type="button" onclick="location.href='/login'" class="btn btn-dark dropdown-toggle2" >로그인</button>
+            {{/loginUser}}
+        </div>
+    </nav>
+    <div id="main-all">
+        <div class="main-header">
+            <h2>공지사항</h2>
+            <hr>
+        </div>
+        <div id="content_box">
+            <div class="notice_content_container">
+                <h3>제목 : {{cs.csSubject}}</h3>
+                <br>
+                <small>작성자 : {{cs.userName}} / 작성날짜 : {{cs.csDate}}</small>
+                <hr>
+                <br>
+                <textarea name="csContent" rows="30" cols="100" class="main_content" readonly>{{cs.csContent}}</textarea>
+                <br>
+                <hr>
+                <div class="div-a-tag">
+                {{#loginUser.userType}}
+                    <a class="a-tag" href="/noticeModify?csNo={{cs.csNo}}">수정</a>
+    <!--                <a href="#">수정</a>-->
+                    <a class="a-tag" href="javascript:void(0);" onclick="removeCheck({{cs.csNo}});">삭제</a>
+                {{/loginUser.userType}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function removeCheck(csNo) {
+            if (confirm("정말 삭제하시겠습니까?")) {
+                location.href="/noticeRemove?csNo=" + csNo;
+            }
+        }
+    </script>
+</main>
+{{>layouts/footer}}

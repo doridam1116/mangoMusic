@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="CommentMapper">
+    <resultMap id="CmResultMap" type="com.kh.mango.cs.domain.Comment">
+        <id property="commentNo" column="COMMENT_NO"/>
+        <result property="userNo" column="USER_NO"/>
+        <result property="cmContent" column="COMMENT_CONTENT"/>
+        <result property="cmDate" column="COMMENT_DATE"/>
+        <result property="tradeNo" column="TRADE_NO"/>
+        <result property="csNo" column="CS_NO"/>
+        <result property="userName" column="USER_NAME"/>
+    </resultMap>
+
+
+    <insert id="insertComment">
+        INSERT INTO COMMENT_TBL VALUES (SEQ_COMMENT_NO.NEXTVAL, #{userNo}, #{commentContent}, SYSTIMESTAMP, NULL, #{csNo})
+    </insert>
+
+    <insert id="insertCommentByTrade">
+        INSERT INTO COMMENT_TBL VALUES (SEQ_COMMENT_NO.NEXTVAL, #{userNo}, #{commentContent}, SYSTIMESTAMP,  #{tradeNo}, NULL)
+    </insert>
+
+
+    <delete id="deleteComment">
+        DELETE FROM COMMENT_TBL WHERE COMMENT_NO = #{commentNo}
+    </delete>
+
+    <select id="selectCommentList" resultType="com.kh.mango.cs.domain.Comment">
+        SELECT M.*, U.USER_NAME, C.CS_NO FROM COMMENT_TBL M
+            JOIN USER_TBL U ON U.USER_NO = M.USER_NO
+            JOIN CS_TBL C ON C.CS_NO = M.CS_NO
+            WHERE C.CS_NO = #{csNo}
+            ORDER BY COMMENT_DATE DESC
+    </select>
+
+</mapper>

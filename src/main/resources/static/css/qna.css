@@ -1,0 +1,259 @@
+.navbar {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+#main-all {
+    height: 100%;
+}
+
+.main-header {
+    margin-top: 50px;
+}
+h2 {
+    padding-bottom: 20px;
+    margin-left: 40px;
+}
+aside {
+    width: 25%;
+    display: flex;
+    justify-content: right;
+    height: 450px;
+    display: block;
+    float: left;
+}
+.side_td {
+    font-size: 25px;
+}
+main {
+    height: 100%;
+}
+
+.notice_content_container {
+    height: 100%;
+    width: 100%;
+}
+.notice_category {
+    border: 1px solid white;
+    border-radius: 10px;
+    border-style: hidden;
+    box-shadow: 0 0 0 1px #808080;
+    margin-left: 70px;
+    margin-top: 30px;
+    border-collapse: collapse;
+    line-height: 50px;
+    width: 150px;
+    height: 150px;
+    position: fixed;
+}
+table {
+    display: table;
+    /*border-collapse: separate;*/
+    box-sizing: border-box;
+    text-indent: initial;
+    border-spacing: 2px;
+    border-color: gray;
+    height: 60%;
+    width: 80%;
+    /*float: left;*/
+    /*width: ;*/
+}
+
+.notice_all_container {
+    margin-top: 100px;
+    margin-bottom: 100px;
+    margin-right: 50px;
+    width: 100%;
+    height: 600px;
+    border-collapse: collapse;
+    /*display: block;*/
+    /*float: left;*/
+
+    /*border: 1px solid white;*/
+    /*padding-right: 100px;*/
+}
+
+.notice_all {
+    /*border-top: 1px solid #969696;*/
+    /*border-bottom: 1px solid #969696;*/
+    /*margin-left: 30px;*/
+    /*margin-top: 100px;*/
+    /*line-height: 30px;*/
+    border-collapse: collapse;
+    line-height: 60px;
+    width: 65%;
+    text-align: left;
+    font-size: 20px;
+    float: left;
+}
+.notice_all thead{
+    /*display:block;*/
+}
+thead{
+    /*display: block;*/
+    width: 100%;
+    background-color: rgba(137,119,173,0.3);
+}
+.notice_all tbody {
+    /*display: block;*/
+    /*overflow:auto;*/
+}
+/*스크롤 설정*/
+/*.box1::-webkit-scrollbar{*/
+/*    width: 18px;*/
+/*}*/
+/* 스크롤바 막대 설정*/
+/*.box1::-webkit-scrollbar-thumb{*/
+/*    background-color: rgba(255,255,255,1);*/
+/*    !* 스크롤바 둥글게 설정    *!*/
+/*    border-radius: 10px;*/
+/*    border: 1px solid rgba(0,0,0,0.8);*/
+/*}*/
+/*.box1::-webkit-scrollbar-track{*/
+/*    background-color: rgba(0,0,0,0);*/
+/*}*/
+/*막대설정*/
+.tbody{
+    /*display: block;*/
+    /*height: 200px;*/
+    /*overflow: auto;*/
+    width: 100%;
+    height: 500px;
+}
+.tfoot {
+    /*display: block;*/
+    width: 100%;
+    margin-top: 30px;
+}
+.pageSt {
+    text-align: center;
+}
+.pageWr {
+    text-align: right;
+}
+/** {*/
+/*    border: 1px solid white;*/
+/*}*/
+a {
+    color: white;
+}
+th, td {
+    text-align: center;
+}
+/*.noticeList {*/
+/*    !*display: block;*!*/
+/*    width: 10%;*/
+/*}*/
+.noticeList:hover {
+     background-color: rgba(255,255,255,0.3);
+}
+#tr_th {
+    /*border-bottom: 1px solid #888888;*/
+    /*background-color: rgba(137,119,173,0.3);*/
+    margin-right: 10px;
+    /*background-color: #2e2649;*/
+}
+.table_no {
+    width: 5%;
+}
+.table_subject {
+    width: 50%;
+}
+.table_writer {
+    width: 10%;
+}
+.table_day {
+    width: 30%;
+    padding-left: 20px;
+}
+.td_no{
+    width: 5%;
+}
+.td_subject {
+    width: 50%;
+}
+.td_writer {
+    width: 10%;
+}
+.td_day{
+    width: 40%;
+    padding-left: 20px;
+}
+.tf_left {
+    width: 90%;
+    margin-left: 100px;
+}
+.tf_right {
+    width: 20%;
+}
+.writer_btn {
+    text-align: right;
+    margin-top: 50px;
+    margin-right: 100px;
+    margin-bottom: 100px;
+}
+th, tr, td {
+ /*border: 1px solid white;*/
+}
+select {
+    color: white;
+    border: 0px solid white;
+    background-color: transparent;
+}
+option {
+    color: black;
+    background-color: transparent;
+}
+
+.input_text {
+    width: 300px;
+    height: 50px;
+    font-size: 15px;
+    border: 0;
+    border-radius: 15px;
+    outline: none;
+    padding-left: 10px;
+    color: white;
+    border: 1px solid #ccc;
+    /*background-color: rgb(233, 233, 233);*/
+    background-color:transparent;
+    margin: 0px 10px;
+}
+.input_submit {
+    height: 51px;
+    border-radius: 15px;
+    line-height: initial;
+    color: white;
+    background-color:transparent;
+    border: 1px solid #ccc;
+    padding: 0px 10px;
+}
+.input_submit:hover{
+    color: black;
+    background-color: white;
+}
+.input_btn:hover {
+    color: black;
+    background-color: white;
+}
+.input_btn {
+    height: 51px;
+    border-radius: 15px;
+    line-height: initial;
+    color: white;
+    background-color:transparent;
+    border: 1px solid #ccc;
+}
+.tf_right{
+    float: right;
+    margin-right: 50px;
+}
+
+
+button{
+
+}

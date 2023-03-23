@@ -1,49 +1,179 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport"
-              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>회원 로그인</title>
-        <style>
-            #main {
-                border: 1px solid black;
-                margin: auto;
-                padding: 20px;
-            }
-            #button-area {
-                margin-top: 20px;
-                --text-align: center;
-                flex-direction: row;
-                align-items: stretch;
-            }
-            .btn {
-                width: 500px;
-                height: 80px;
-            }
-        </style>
-    </head>
-    <body>
-        <main class="body">
-            <h1>로그인</h1>
-            <form action="/login" method="post">
-                <input type="text" class="login" name="userId" placeholder="ID를 입력해주세요"> <br>
-                <input type="password" class="login" name="userPw" placeholder="PW를 입력해주세요">
-            </form>
-            <div id="button-area">
-                <button class="btn"><a href="#">로그인</a></button>
-                <br><br><br>
-                <button class="btn"><a href="#">구글 로그인</a></button>
-                <br><br>
-                <button class="btn"><a href="#">네이버 로그인</a></button>
-                <br><br>
-                <button class="btn"><a href="#">카카오 로그인</a></button>
-                <br><br><br>
-                <button><a href="/register">회원가입</a></button>
-                <button><a href="#">아이디 찾기</a></button>
-                <button><a href="#">비밀번호 찾기</a></button>
-            </div>
-        </main>
-    </body>
+<head>
+    <meta charset="UTF-8">
+    <title>로그인</title>
+    <link rel="stylesheet" href="/login.css" />
+    <script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js"charset="utf-8"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="colors.js"></script>
+    <script>
+        function init(){
+            console.log('init');
+            gapi.load('auth2', function() {
+                /* Ready. Make a call to gapi.auth2.init or some other API */
+                console.log('auth2');
+                var gaytg = gapi.auth2.init({
+                    client_id:'561777368048-ns5u9td7q0e2nvaq193ndjvr61uisi5r.apps.googleusercontent.com'
+                })
+                gauth.then(function(){
+                    console.log('googleAuth success');
+                    if(gauth.isSignedIn.get()){
+                        console.log('logouted');
+                    }else{
+                        console.log('logouted');
+                    }
+                }, function(){
+                    console.log('googleAuth fail');
+                })
+            });
+        }
+    </script>
+
+</head>
+<body>
+<a class="main-logo" href="/">
+    <div class="text-light heading d-flex align-items-center justify-content-flex-start mt-3">
+        <i class="fa-regular fa-mango mx-3 p-1"></i> Mango Music
+    </div>
+</a>
+<div class="login-box">
+    <form method="post" action="/login" id="login-form">
+        <h2>Login</h2>
+        <div class="user-box">
+            <input type="text" name="user-id" placeholder="ID">
+            <!--                    <label>ID</label>-->
+        </div>
+        <div class="user-box">
+            <input type="password" name="user-pw" placeholder="Password">
+            <!--                    <label>PW</label>-->
+        </div>
+        <div id="findIdPw">
+            <a class="find" href="/findId">아이디 찾기</a>
+            <span class="find">/</span>
+            <a class="find" href="/findPw">비밀번호 찾기</a>
+        </div>
+        <div id="login-btn">
+            <button type="submit" id="login-b" class="login-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                로그인
+            </button>
+            <button type="button" class="login-btn" onclick="location.href='/register'">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                회원가입
+            </button>
+        </div>
+    </form>
+<!--        <div class="snsLogin">-->
+<!--            <a class="sns" href="#"><img class="login-logo" src="Login_img/btn_google_signin_light_focus_web@2x.png" alt="구글 로그인"></a> <br>-->
+<!--            <ul>-->
+<!--                <li id="GgCustomLogin">-->
+<!--                    <a href="javascript:void(0)">-->
+<!--                        <img class="login-logo" src="Login_img/btn_google_signin_light_focus_web@2x.png" alt="구글 로그인">-->
+<!--                    </a>-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--            <div class="g-signin2" data-onsuccess="onSignIn"></div>-->
+<!--            <a class="sns" href="#"><img class="login-logo" src="Login_img/btnG_완성형.png" alt="네이버 로그인"></a> <br>-->
+<!--            <ul>-->
+<!--                <li>-->
+<!--                    &lt;!&ndash; 아래와같이 아이디를 꼭 써준다. &ndash;&gt;-->
+<!--                    <a id="naverIdLogin_loginButton" href="javascript:void(0)">-->
+<!--                        네이버 로그인-->
+<!--                    </a>-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--            <a class="sns" href="#"><img class="login-logo" src="Login_img/kakao_login_large_wide.png" alt="카카오 로그인"></a> <br>-->
+<!--            <ul>-->
+<!--                <li onclick="kakaoLogin();">-->
+<!--                    <a href="javascript:void(0)">-->
+<!--                        카카오 로그인-->
+<!--                    </a>-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--        </div>-->
+    </form>
+</div>
+<script>
+    {{#error}}
+        window.onload = function() {
+            alert("아이디 또는 비밀번호를 확인해주세요.")
+        }
+    {{/error}}
+    {{#success}}
+        window.onload = function() {
+            alert("축하합니다. 회원가입에 성공하셨습니다.")
+        }
+    {{/success}}
+    {{#findId}}
+        window.onload = function () {
+            window.open('/newFind?userName={{user.userName}}&userEmail={{user.userEmail}}','','bottom=600, left=800, width=500, height=300');
+        }
+    {{/findId}}
+    {{#findPw}}
+        window.onload = function () {
+            window.open('/updatePw?userId={{user.userId}}&userName={{user.userName}}&userEmail={{user.userEmail}}','','bottom=600, left=800, width=500, height=300');
+        }
+    {{/findPw}}
+    {{#su}}
+        window.close();
+    {{/su}}
+</script>
+<!--&lt;!&ndash;구글 로그인 api&ndash;&gt;-->
+<!--<script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>-->
+<!--&lt;!&ndash;네이버 로그인 api&ndash;&gt;-->
+<!--<script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>-->
+<!--<script>-->
+<!--    var naverLogin = new naver.LoginWithNaverId(-->
+<!--            {-->
+<!--                clientId: "j0qO4QKJz7oq4wRGQvPF", //내 애플리케이션 정보에 cliendId를 입력해줍니다.-->
+<!--                callbackUrl: "http://http://127.0.0.1:8985/naverLogin", // 내 애플리케이션 API설정의 Callback URL 을 입력해줍니다.-->
+<!--                isPopup: false,-->
+<!--                callbackHandle: true-->
+<!--            }-->
+<!--    );-->
+<!--    naverLogin.init();-->
+
+<!--    window.addEventListener('load', function () {-->
+<!--        naverLogin.getLoginStatus(function (status) {-->
+<!--            if (status) {-->
+<!--                var email = naverLogin.user.getEmail(); // 필수로 설정할것을 받아와 아래처럼 조건문을 줍니다.-->
+
+<!--                console.log(naverLogin.user);-->
+
+<!--                if( email == undefined || email == null) {-->
+<!--                    alert("이메일은 필수정보입니다. 정보제공을 동의해주세요.");-->
+<!--                    naverLogin.reprompt();-->
+<!--                    return;-->
+<!--                }-->
+<!--            } else {-->
+<!--                console.log("callback 처리에 실패하였습니다.");-->
+<!--            }-->
+<!--        });-->
+<!--    });-->
+
+<!--    var testPopUp;-->
+<!--    function openPopUp() {-->
+<!--        testPopUp= window.open("https://nid.naver.com/nidlogin.logout", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,width=1,height=1");-->
+<!--    }-->
+<!--    function closePopUp(){-->
+<!--        testPopUp.close();-->
+<!--    }-->
+
+<!--    function naverLogout() {-->
+<!--        openPopUp();-->
+<!--        setTimeout(function() {-->
+<!--            closePopUp();-->
+<!--        }, 1000);-->
+<!--    }-->
+<!--</script>-->
+<!--카카오 로그인 api-->
+
+</body>
 </html>

@@ -1,0 +1,228 @@
+{{>layouts/sidebar}}
+{{#loginUser.userNo}}
+    <link rel="stylesheet" href="/library.css">
+    <script>
+        $(document).ready(function(){
+            msgUserSearchFunc();
+        });
+    </script>
+    <!-- sidebar -->
+    <main class="body" id="body-mypage">
+        <nav class="navbar sticky-top mb-3" id="navbar-mypage">
+            <div class="d-flex align-items-center justify-content-between" id="d-flex-mypage">
+                <div class="d-flex"></div>
+                <!-- <i class="fa-solid fa-chevron-left chevrons"></i><i class="fa-solid fa-chevron-right chevrons"></i> -->
+            </div>
+            <!--        <button onclick="test111()" value="asdasd" style="width: 30px;height: 30px;"></button>-->
+            <div class="d-flex align-items-center" id="rightnav">
+
+                <div style="margin-right: 1rem; display: flex" class="message">
+
+                    <div class="msg-area" id="msg-box">
+                        <div class="msg-user-list-box" style=" float: left;">
+                            <div class="msg-user-list">
+                                <ul class="msg-user-list-ul">
+                                </ul>
+                            </div>
+                            <div class="new-msg-user-list">새로운 메시지</div>
+                        </div>
+                        <div class="msg-content-box">
+                            <div class="msg-box" >
+
+                            </div>
+
+                        </div>
+                        <div class="msg-input-box" style="display: inline-block; flex-direction: row;float:left;">
+                            <div class="in" style=" height: 100%; width: 495px; background-color: #F2F3F5;  float:left;">
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="msg-toggle-btn" id="msg-btn" onclick="msgToggle();"></button>
+                </div>
+                <div class="dropdown" id="myPageDropDown">
+                    <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1"
+                            data-bs-toggle="dropdown" aria-expanded="false" style="border-radius: 25px;">
+                        <!-- 유저 이미지 -->
+                        {{#loginUser.userFilename}}
+                            <img src="{{loginUser.userFilename}}"
+                                 style="width: 30px; height: 30px; border-radius: 50%" class="dropdown-pic"/>
+                        {{/loginUser.userFilename}}
+                        {{^loginUser.userFilename}}
+                            <img src="../img/abstract-user-flat-3.svg"
+                                 style="width: 30px; height: 30px; border-radius: 50%" class="dropdown-pic"/>
+                        {{/loginUser.userFilename}}
+                        <!-- 유저이름 -->
+                        &nbsp;&nbsp;{{loginUser.userName}}&nbsp;&nbsp;
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href="/mypage">마이페이지</a></li>
+                        <li><a class="dropdown-item" href="/logout">로그아웃</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="margin-top">
+            <h2 class="greeting mb-3">Library</h2>
+            <div class="profile">
+                <div class="profile-img"></div>
+
+                <!--             닉네임 들어갈곳-->
+<!--                여기 수정하기 ~!~!~!-->
+                <input type="hidden" value="{{followerPage.userNo}}" id="userNo">
+                <div class="profile-name"><h1 class="profile-name-h1">{{followerPage.userName}}</h1></div>
+                <div class="profile-letter"><span class="profile-letter-span">
+                    {{#followerPage.userProfileLetter}} {{{followerPage.userProfileLetter}}} {{/followerPage.userProfileLetter}}
+                </span></div>
+            </div>
+        </div>
+        <br>
+{{/loginUser.userNo}}
+
+    <!--라이브러리 추가할 곳-->
+    <div id="library">
+        <div id="library-playlist">
+            <h4 id="playlist-header" style="float: left">내 플레이리스트</h4>
+
+            <div class="container" style="overflow: scroll; height: 500px;">
+                <!--                노래 들어갈 곳-->
+                <ul>
+                    {{#followPlaylist}}
+                        <li id="song-list" onclick="playMusic(this)">
+                            {{playlistSong}} - {{playlistArtist}}
+                        </li>
+                    {{/followPlaylist}}
+                </ul>
+            </div>
+        </div>
+        <div id="library-like">
+            <h4 id="like-header">내 좋아요</h4>
+            <div class="container">
+                <!--                좋아요 한 노래 들어갈 곳-->
+            </div>
+        </div>
+    </div>
+
+
+<script>
+
+    // var video_query = $.trim($(obj).text()) + ' official music video';
+    // var video_url = createVideoUrl(video_query);
+
+    function playMusic(obj) {
+        var video_query = $.trim($(obj).text()) + ' official music video';
+        var video_url = createVideoUrl(video_query);
+
+        fetch(video_url)
+                .then(response => response.json())
+                .then(data => {
+                    var video_id = data.items[0].id.videoId;
+
+                    // IFrame Player 생성
+                    if (!player) {
+                        player = new YT.Player('player', {
+                            height: '360',
+                            width: '640',
+                            videoId: video_id,
+                            playerVars: {
+                                'rel': 0,
+                                'controls': 0,
+                                'autoplay': 1,
+                                'mute': 0,
+                                'loop': 1,
+                                'playsinline': 1,
+                                'playlist': ''
+                            },
+                            events: {
+                                'onReady': onPlayerReady,
+                                'onStateChange': onPlayerStateChange
+                            }
+                        });
+                        // 플레이바 업데이트 인터벌 설정
+                        progressInterval = setInterval(updateProgressBar, 100);
+                    } else {
+                        // IFrame Player에 비디오 ID 설정
+                        player.loadVideoById(video_id);
+                    }
+                });
+
+    }
+
+    // 플레이어가 준비되면 호출되는 함수
+    function onPlayerReady(event) {
+        event.target.playVideo();
+        duration = player.getDuration();
+    }
+
+    // 플레이어의 상태가 변경될 때 호출되는 함수
+    function onPlayerStateChange(event) {
+        // 재생이 끝나면 다음 비디오 재생
+        if (event.data === YT.PlayerState.ENDED) {
+            var search_results = document.getElementById('search-results');
+            var next_video = search_results.childNodes[0];
+            next_video.click();
+        }
+    }
+
+    // 검색 함수에서 사용할 URL 생성 함수
+    function createVideoUrl(video_query) {
+        var encoded_query = encodeURIComponent(video_query);
+        var url = 'https://www.googleapis.com/youtube/v3/search?part=snippet&q=' + encoded_query + '&key=' + youtube_api_key;
+        return url;
+    }
+
+    // 플레이바 업데이트 함수
+    function updateProgressBar() {
+        if (player && duration) {
+            var currentTime = player.getCurrentTime();
+            var progressPercent = (currentTime / duration) * 100;
+            var progressBar = document.getElementById('progress-bar');
+            progressBar.style.width = progressPercent + '%';
+        }
+    }
+
+    // 재생/일시정지 버튼 클릭 시 호출되는 함수
+    function togglePlayPause() {
+        if (player) {
+            var playPauseBtn = document.getElementById('play-pause-btn');
+            if (player.getPlayerState() === YT.PlayerState.PLAYING) {
+                player.pauseVideo();
+                playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+            } else {
+                player.playVideo();
+                playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+            }
+        }
+    }
+
+    // 볼륨 조절 슬라이더 값 변경 시 호출되는 함수
+    function changeVolume() {
+        if (player) {
+            var volumeSlider = document.getElementById('volume-slider');
+            var volume = volumeSlider.value;
+            player.setVolume(volume);
+        }
+    }
+
+    // YouTube Data API 키
+    var youtube_api_key = 'AIzaSyCN1eJrwdu0EXLc92vyj2Eg8KWWPA1Zm-o';
+
+</script>
+
+</main>
+
+<script src="mypage.js"></script>
+<script src="message.js"></script>
+{{#loginUser.userId}}
+    {{>layouts/footer}}
+{{/loginUser.userId}}
+
+{{^loginUser.userId}}
+    {{>layouts/footer}}
+    <script>
+        $(document).ready(function () {
+            alert("로그인이 필요합니다.");
+            window.location.replace("http://localhost:8985/login");
+        });
+
+    </script>
+{{/loginUser.userId}}

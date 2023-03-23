@@ -1,0 +1,140 @@
+{{>layouts/sidebar}}
+<link rel="stylesheet" href="css/trade.css" />
+<main>
+    <nav class="navbar sticky-top mb-3" id="navbar-mypage">
+        <div class="d-flex align-items-center justify-content-between" id="d-flex-mypage">
+            <div class="d-flex"></div>
+            <!-- <i class="fa-solid fa-chevron-left chevrons"></i><i class="fa-solid fa-chevron-right chevrons"></i> -->
+        </div>
+
+        <div class="d-flex align-items-center" id="rightnav">
+            <div style="margin-right: 1rem">
+            </div>
+            {{#loginUser}}
+                <div class="dropdown" id="myPageDropDown">
+                    <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1"
+                            data-bs-toggle="dropdown" aria-expanded="false" style="border-radius: 25px;">
+                        <!-- 유저 이미지 -->
+                        {{#loginUser.userFilename}}
+                            <img src="{{loginUser.userFilename}}"
+                                 style="width: 30px; height: 30px; border-radius: 50%" class="dropdown-pic"/>
+                        {{/loginUser.userFilename}}
+                        {{^loginUser.userFilename}}
+                            <img src="../img/abstract-user-flat-3.svg"
+                                 style="width: 30px; height: 30px; border-radius: 50%" class="dropdown-pic"/>
+                        {{/loginUser.userFilename}}
+                        <!-- 유저이름 -->
+                        &nbsp;&nbsp;{{userName}}&nbsp;&nbsp;
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton1">
+                        {{#loginUser.userType}}
+                            <li><a class="dropdown-item" href="/admin2">관리자페이지</a></li>
+                        {{/loginUser.userType}}
+                        {{^loginUser.userType}}
+                            <li><a class="dropdown-item" href="/mypage">마이페이지</a></li>
+                        {{/loginUser.userType}}
+                        <li><a class="dropdown-item" href="/logout">로그아웃</a></li>
+                    </ul>
+                </div>
+            {{/loginUser}}
+            {{^loginUser}}
+                <button type="button" onclick="location.href='/login'" class="btn btn-dark dropdown-toggle2" >로그인</button>
+            {{/loginUser}}
+        </div>
+    </nav>
+    <div id="main-all">
+
+
+        <div class="main-header">
+            <h2>거래소</h2>
+            <hr>
+        </div>
+        <div class="trade_content_container">
+            <div class="trade_all_container">
+                <table class="trade_all">
+                    <tbody>
+                    <tr id="tr_th">
+                        <th class="table_no" style="width: 90px">
+                            번호
+                        </th>
+                        <th>
+                            분류
+                        </th>
+                        <th class="table_subject">
+                            제목
+                        </th>
+                        <th>
+                            가격
+                        </th>
+                        <th class="table_writer">
+                            작성자
+                        </th>
+                        <th class="table_day">
+                            작성날짜
+                        </th>
+                        <th class="table_view">
+                           조회수
+                        </th>
+                    </tr>
+                    {{#tList}}
+                        <tr class="table-tr">
+                            <td>
+                                {{tradeNo}}
+                            </td>
+                            <td>
+                                {{tradeType}}
+                            </td>
+                            <td style="text-align: left; padding-left: 50px;">
+                                <a href="/tradeDetail?tradeNo={{tradeNo}}">{{tradeSubject}}</a>
+                            </td>
+                            <td>
+                                {{tradePrice}}
+                            </td>
+                            <td>
+                                {{userName}}
+                            </td>
+                            <td class="tradeDate-td">{{tradeDate}}</td>
+                            <td>
+                                {{TradeView}}
+                            </td>
+                        </tr>
+                    {{/tList}}
+
+                    </tbody>
+                    <tfoot>
+                    <tr align="center">
+                        <td class="td_page" colspan="4">
+                            {{{paging}}}
+                        </td>
+                        <td class="td_wr"><button class="td_btn" type="button" onclick="location.href = '/tradeWrite'">글쓰기</button></td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">
+                            <form action="/tradeSearch" method="get">
+                                <select name="searchCondition" class="select-search">
+                                    <option class="option" value="all">전체</option>
+                                    <option class="option" value="userName">작성자</option>
+                                    <option class="option" value="subject">제목</option>
+                                    <option class="option" value="content">내용</option>
+                                </select>
+                                <input type="text" class="input_text" name="searchValue" placeholder="검색어를 입력해주세요.">
+                                <input type="submit" class="input_submit" value="검색">
+                            </form>
+                        </td>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+<script>
+    $(document).ready(function(){
+        var tradeDateList = document.querySelectorAll('.tradeDate-td');
+
+        for(var i = 0; i < tradeDateList.length; i++){
+            tradeDateList[i].innerHTML = tradeDateList[i].innerHTML.substring(0,16);
+        }
+    })
+</script>
+{{>layouts/footer}}

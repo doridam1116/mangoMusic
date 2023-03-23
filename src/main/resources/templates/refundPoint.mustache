@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원 상세 페이지</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500&display=swap');
+        body {
+            color: #ffffff;
+            background-color: #343a40;
+            font-family: 'Noto Sans KR', sans-serif;
+            background-image: linear-gradient(to top,
+            #121212,
+            #121212,
+            #121212,
+            #121212,
+            #121212,
+            #161419,
+            #1a151e,
+            #201522,
+            #311327,
+            #430d24,
+            #53051b,
+            #5e0506);
+            background-size: cover;
+            height: 100%;
+            overflow: auto;
+            overflow-x: hidden;
+            background-attachment: fixed;
+        }
+
+        h2 {
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 25px;
+            text-align: center;
+        }
+
+        #user_add {
+            width: 400px;
+            text-align: center;
+            margin: 0 auto;
+        }
+
+
+        #user_info li label {
+            width: 50px;
+            text-align: left;
+            float: left;
+        }
+
+
+        fieldset {
+            border: 3px dashed #6e6e6e;
+        }
+
+        fieldset legend {
+            font-family: 'Noto Sans KR', sans-serif;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        select {
+            width: 170px;
+        }
+
+        #search {
+            text-align: center;
+        }
+
+
+        input[type=button] {
+            width: 200px;
+            height: 35px;
+            background-color:antiquewhite;
+            --border: 1px solid #ccc;
+            --box-shadow: 1px 1px 1px #ccc;
+            text-align: center;
+            font-weight: bold;
+            cursor: pointer;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        #button-area {
+            margin-top: 40px;
+            text-align: center;
+            --padding: 10px;
+            --border-radius: 20px;
+        }
+
+    </style>
+</head>
+<body>
+<br>
+<h2>포인트 출금</h2>
+<br>
+<div id="main1">
+    <form id="search" action="/refundPointAction" method="get">
+        <input type="text" name="pointVal" value="" style="width: 300px; height: 30px">
+        <input type="submit" value="출금">
+    </form>
+
+</div>
+
+<div id="button-area">
+    <p id="input"><input type="button" value="닫기" onclick="self.close()"></p>
+</div>
+<script>
+        {{#com}}
+    window.onload=function(){
+        window.close();
+    }
+    {{/com}}
+    {{#fal}}
+        window.onload=function(){
+            alert("출금에 실패하였습니다.\n 잔액을 확인해 주세요");
+        }
+        {{/fal}}
+</script>
+</body>
+</html>

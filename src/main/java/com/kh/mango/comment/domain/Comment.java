@@ -16,8 +16,13 @@ public class Comment {
     private int userNo;
     private String commentContent;
     private Timestamp commentDate;
-    private Timestamp commentUpdate;
     private int tradeNo;
-    private String musicId;
+    private int csNo;
+    private String userName;
 
+    public Comment(int userNo, String commentContent, int tradeNo) {
+        this.userNo = userNo;
+        this.commentContent = commentContent;
+        this.tradeNo = tradeNo;
+    }
 }
