@@ -1,0 +1,13 @@
+#addPlaylist-header {
+    font-size: 30px;
+    padding: 50px;
+}
+
+li {
+    font-size: 20px;
+    color: #a2a2a2;
+}
+
+li:hover {
+    color: white;
+}

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="DealMapper">
+
+    <update id="updateBuyer">
+        UPDATE POINT_TBL SET POINT_VAL = POINT_VAL - #{dealPrice} WHERE USER_NO = #{buyerNo}
+    </update>
+    <update id="updateSeller">
+        UPDATE POINT_TBL SET POINT_VAL = POINT_VAL + #{dealPrice} WHERE USER_NO = #{sellerNo}
+    </update>
+
+    <insert id="insertBuyerPointRecord">
+        INSERT INTO POINT_RECORD_TBL VALUES(#{buyerNo}, '구매',#{dealPrice},SYSTIMESTAMP )
+    </insert>
+    <insert id="insertSellerPointRecord">
+        INSERT INTO POINT_RECORD_TBL VALUES(#{sellerNo}, '판매',#{dealPrice},SYSTIMESTAMP)
+    </insert>
+    <insert id="insertDealBuyer">
+        INSERT INTO DEAL_TBL VALUES (#{tradeNo},'구매',SYSTIMESTAMP,#{buyerNo},#{sellerNo},#{dealPrice})
+    </insert>
+    <insert id="insertDealSeller">
+        INSERT INTO DEAL_TBL VALUES (#{tradeNo},'판매',SYSTIMESTAMP,#{buyerNo},#{sellerNo},#{dealPrice})
+    </insert>
+</mapper>

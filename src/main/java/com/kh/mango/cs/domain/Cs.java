@@ -12,10 +12,14 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Cs {
+    private int rowNum;
     private int csNo;
     private int csCategory;
     private String csSubject;
     private String csContent;
     private Timestamp csDate;
     private int userNo;
+    private String userName;
+
+
 }

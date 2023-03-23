@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #table-header {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+        }
+        #table-search {
+            float: right;
+        }
+        tr:hover {
+            color: white;
+        }
+        #submit {
+            font-size: 30px;
+        }
+        #user-list {
+            font-size: 20px;
+            font-weight: normal;
+            padding: 20px;
+            /*padding-right: 150px;*/
+            /*padding-top: 20px;*/
+            /*padding-left: 20px;*/
+        }
+
+        /*table {*/
+        /*    width: inherit;*/
+        /*    height: 500px;*/
+        /*    text-align: center;*/
+        /*}*/
+    </style>
+</head>
+<body>
+    <div id="table-header">
+        <div id="submit">회원 목록</div>
+        <div id="table-search">
+            <input type="text" id="search-input" name="searchValue" placeholder="검색어 입력" style="width: 300px; height: 30px">
+            <input type="submit" value="검색" id="searchUserList">
+        </div>
+    </div>
+    <div id="user-list" style="overflow: scroll; height: 500px;">
+        <table class="table" style="color: #b6b6b6; font-size : 16px; text-align: center;">
+            <thead class="thead-light">
+            <tr>
+                <th>번호</th>
+                <th>아이디</th>
+                <th>이름</th>
+                <th>이메일</th>
+                <th>가입일자</th>
+            </tr>
+            </thead>
+
+            <tbody id="tableBody"  style="cursor: pointer;">
+            {{#user}}
+                <tr onclick="window.open('/admin/userInfo?userNo={{userNo}}','','top=0, left=700, width=500, height=600')">
+                <td>{{userNo}}</td>
+                <td>{{userId}}</td>
+                <td>{{userName}}</td>
+                <td>{{userEmail}}</td>
+                <td>{{userDate}}</td>
+                <tr>
+            {{/user}}
+            </tbody>
+
+            <!--                        <tr align="center">-->
+            <!--                            <td colspan="3">-->
+
+            <!--                            </td>-->
+            <!--                        </tr>-->
+        </table>
+    </div>
+</body>
+<script>
+    // 회원 검색 목록 ajax로 구현하기
+    $("#searchUserList").click(function () {
+
+        // console.log($("#search-input").val())
+
+        const searchData = {
+            "searchValue" : $("#search-input").val()
+        };
+
+        $.ajax(
+                {
+                    type: "GET",
+                    url: "/ajaxSearchUser",
+                    data: searchData,
+                    dataType : "json" ,
+                    success: function (result) {
+                        let tableTd = "";
+                        for(let i=0; i< result.length; i++) {
+
+                            tableTd += "<tr onclick=\"window.open('/admin/userInfo?userNo="+result[i].userNo+"','','top=0, left=700, width=500, height=600')\">";
+                            tableTd += '<td>' + result[i].userNo + '</td>';
+                            tableTd += '<td>' + result[i].userId + '</td>';
+                            tableTd += '<td>' + result[i].userName + '</td>';
+                            tableTd += '<td>' + result[i].userEmail + '</td>';
+
+                            // 이부분 수정함*%*%*%*%*%*%**%%*
+                            // 이부분 수정함*%*%*%*%*%*%**%%*
+                            // 이부분 수정함*%*%*%*%*%*%**%%*
+                            tableTd += '<td>' + moment(result[i].userDate).format("YYYY-MM-DD HH:mm:ss") + '</td>';
+
+                            tableTd += '</tr>'
+                            // $('#tableBody').attr("onclick='window.open('/admin/userInfo?userNo="+result[i].userNo+"','','top=0, left=700, width=500, height=600')'");
+                        }
+                        $('#tableBody').html(tableTd);
+                    }
+                }
+        )
+
+    })
+</script>
+</html>

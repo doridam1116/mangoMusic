@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport"
+            content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <title>공지사항</title>
+      <link rel="stylesheet" href="css/notice.css" />
+      <link rel="stylesheet" href="style.css" />
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-Mc5Qjl0LCzJmr8vYE7X1CPkZXIL+7nWgpC8+K7V/cIkYpPck+VWcdx/zecT77Jlk70I+LzSzm1np99kaJvAnQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+      <link rel="stylesheet" href="Album/styles.css">
+    </head>
+    <body>
+        <div class="navbar-custom d-none d-lg-block d-xl-block d-xxl-block">
+          <ul class="navbar-nav">
+              <li class="nav-item my-3">
+                  <div class="text-light heading d-flex align-items-center justify-content-flex-start mt-3">
+                      <i class="fa-regular fa-mango mx-3 p-1"></i> Mango Music
+                  </div>
+              </li>
+              <li class="nav-item">
+                  <button type="button"
+                          class="btn w-100 h-50 py-md-2 text-light button-hover text-left d-flex align-items-center justify-content-around"
+                          style="height: 60px">
+                      <i class="fa-solid fa-house mx-3"></i>
+                      <div class="w-75 d-flex">
+                          <a class="gotohome" href="./index.html">홈</a>
+                      </div>
+                  </button>
+              </li>
+              <li class="nav-item">
+                  <button type="button"
+                          class="btn w-100 h-50 py-md-2 text-light button-hover text-left d-flex align-items-center justify-content-around"
+                          style="height: 60px">
+                      <i class="fa-solid fa-magnifying-glass mx-3"></i>
+                      <div class="w-75 d-flex">
+                          <a class="gotohome" href="./Search/search.html">검색하기</a>
+                      </div>
+                  </button>
+              </li>
+              <li class="nav-item">
+                  <button type="button"
+                          class="btn w-100 h-50 py-md-2 text-light button-hover text-left d-flex align-items-center justify-content-around"
+                          style="height: 60px">
+                      <i class="fa-regular fa-bookmark mx-3"></i>
+                      <div class="w-75 d-flex">내 라이브러리</div>
+                  </button>
+              </li>
+              <li class="nav-item margin-top">
+                  <button type="button"
+                          class="btn w-100 h-50 py-md-2 text-light button-hover text-left d-flex align-items-center justify-content-around"
+                          style="height: 60px">
+                      <i class="fa-solid fa-plus mx-2"></i>
+                      <div class="w-75 d-flex">플레이리스트 만들기</div>
+                  </button>
+              </li>
+              <li class="nav-item">
+                  <button type="button"
+                          class="btn w-100 h-50 py-md-2 text-light button-hover text-left d-flex align-items-center justify-content-around"
+                          style="height: 60px">
+                      <i class="fa-solid fa-heart mx-2"></i>
+                      <div class="w-75 d-flex">좋아요 표시한 곡</div>
+                  </button>
+              </li>
+          </ul>
+          <div>
+              <span class="m-3 download"><i class="fa-regular fa-circle-down mt-3"></i> Install App</span>
+          </div>
+        </div>
+
+
+          <main>
+              <div id="main-all">
+                  <nav class="navbar sticky-top mb-3">
+                      <div class="d-flex align-items-center" id="rightnav">
+                          <div style="margin-right: 1rem">
+                              <button type="button" class="btn btn-outline-white text-light" style="border-radius: 20px" onclick="location.href='/login'">
+                                  로그인
+                              </button>
+                          </div>
+                      </div>
+
+                  </nav>
+                  <div class="main-header">
+                      <h2>고객센터</h2>
+                      <hr>
+                  </div>
+                  <div class="main-body">
+                      <div class="body-top">
+                          <a href="#">공지사항</a>
+                          <a href="#">Q&A</a>
+                      </div>
+                      <div class="body-mid">
+                          <table>
+                              <tr>
+                                  <th>제목</th>
+                                  <th>작성자</th>
+                                  <th>작성날짜</th>
+                              </tr>
+                              <tr>
+                                  <td>1</td>
+                                  <td>2</td>
+                                  <td>3</td>
+                              </tr>
+                              <tr>
+                                  <td>1</td>
+                                  <td>2</td>
+                                  <td>3</td>
+                              </tr>
+                              <tr>
+                                  <td>1</td>
+                                  <td>2</td>
+                                  <td>3</td>
+                              </tr>
+                              <tr>
+                                  <td>1</td>
+                                  <td>2</td>
+                                  <td>3</td>
+                              </tr>
+                              <tr>
+                                  <td>1</td>
+                                  <td>2</td>
+                                  <td>3</td>
+                              </tr>
+                          </table>
+                      </div>
+                  </div>
+              </div>
+          </main>
+    </body>
+</html>

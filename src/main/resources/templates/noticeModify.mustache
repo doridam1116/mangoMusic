@@ -1,0 +1,35 @@
+{{>layouts/sidebar}}
+<link rel="stylesheet" href="css/notice_wr.css" />
+<main>
+
+    <div id="main-all">
+        <div class="main-header">
+            <h2>공지사항</h2>
+            <hr>
+        </div>
+        <div class="main-body">
+            <form action="/noticeModify" method="post">
+                <input type="hidden" name="csNo" value="{{cs.csNo}}">
+                <div class="writer">
+                    <div class="title">
+                        <label>제목</label> <br>
+                        <input type="text" class="title_text" name="csSubject" value="{{cs.csSubject}}">
+                    </div>
+                    <div>
+                        <label>내용</label> <br>
+                        <textarea id="story txtArea" onkeypress="onTestChange();" name="csContent" rows="30" cols="100">{{cs.csContent}}</textarea>
+                        </li>
+                    </div>
+                    <div class="div_btn">
+                        <input type="submit" class="button" value="수정하기">
+                        <input type="reset" class="button" value="취소">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+<script>
+
+</script>
+{{>layouts/footer}}

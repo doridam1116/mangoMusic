@@ -1,0 +1,160 @@
+{{>layouts/sidebar}}
+{{#loginUser}}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<main class="body" id="body-mypage">
+    <nav class="navbar sticky-top mb-3" id="navbar-mypage">
+        <div class="d-flex align-items-center justify-content-between" id="d-flex-mypage">
+            <div class="d-flex"></div>
+            <!-- <i class="fa-solid fa-chevron-left chevrons"></i><i class="fa-solid fa-chevron-right chevrons"></i> -->
+        </div>
+
+        <div class="d-flex align-items-center" id="rightnav">
+            <div style="margin-right: 1rem">
+            </div>
+            {{#loginUser.userId}}
+                <div class="dropdown" id="myPageDropDown">
+                    <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1"
+                            data-bs-toggle="dropdown" aria-expanded="false" style="border-radius: 25px;">
+                        <!-- 유저 이미지 -->
+                        {{#loginUser.userFilename}}
+                            <img src="{{loginUser.userFilename}}"
+                                 style="width: 30px; height: 30px; border-radius: 50%" class="dropdown-pic"/>
+                        {{/loginUser.userFilename}}
+                        {{^loginUser.userFilename}}
+                            <img src="../img/abstract-user-flat-3.svg"
+                                 style="width: 30px; height: 30px; border-radius: 50%" class="dropdown-pic"/>
+                        {{/loginUser.userFilename}}
+                        <!-- 유저이름 -->
+                        &nbsp;&nbsp;{{loginUser.userName}}&nbsp;&nbsp;
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton1">
+                        {{^loginUser.userType}}
+                            <li><a class="dropdown-item" href="/mypage">마이페이지</a></li>
+                        {{/loginUser.userType}}
+                        {{#loginUser.userType}}
+                            <li><a class="dropdown-item" href="/admin2">관리자페이지</a></li>
+                        {{/loginUser.userType}}
+                        <li><a class="dropdown-item" href="/logout">로그아웃</a></li>
+                    </ul>
+                </div>
+            {{/loginUser.userId}}
+        </div>
+    </nav>
+    <div id="admin">
+        <div id="main-header">
+            관리자 페이지
+        </div>
+        <br>
+        <div id="main">
+            <div class="main-navi">
+                <div class="main-sumary" id="admin-user-list">
+                    회원 정보 관리
+                </div>
+                <div class="main-sumary" id="admin-point">
+                    포인트 관리
+                </div>
+                <div class="main-sumary" id="admin-notice">
+                    고객센터
+                </div>
+            </div>
+            <br>
+            <div id="main-content">
+
+            </div>
+        </div>
+    </div>
+
+<input type="hidden" value="{{loginUser.userType}}" id="test1111">
+
+</main>
+<script>
+    var a = $('#test1111').val();
+    console.log(a);
+</script>
+<script>
+
+    //  포인트 잔량 정규 표현식
+    // var pointVal = document.querySelector(".point-val").value;
+    // document.querySelector(".point-val-re").innerHTML = pointVal.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+
+
+    // 회원 검색 목록 ajax로 구현하기
+    // $("#searchUserList").click(function () {
+    //
+    //     // console.log($("#search-input").val())
+    //
+    //     const searchData = {
+    //         "searchValue" : $("#search-input").val()
+    //     };
+    //
+    //     $.ajax(
+    //             {
+    //                 type: "GET",
+    //                 url: "/ajaxSearchUser",
+    //                 data: searchData,
+    //                 dataType : "json" ,
+    //                 success: function (result) {
+    //                     console.log(result);
+    //                     //결과값 넣기
+    //                     let tableTd = "";
+    //                     for(let i=0; i< result.length; i++) {
+    //
+    //                         tableTd += "<tr onclick=\"window.open('/admin/userInfo?userNo="+result[i].userNo+"','','top=0, left=700, width=500, height=600')\">";
+    //                         tableTd += '<td>' + result[i].userNo + '</td>';
+    //                         tableTd += '<td>' + result[i].userId + '</td>';
+    //                         tableTd += '<td>' + result[i].userName + '</td>';
+    //                         tableTd += '<td>' + result[i].userEmail + '</td>';
+    //                         tableTd += '</tr>'
+    //                         // $('#tableBody').attr("onclick='window.open('/admin/userInfo?userNo="+result[i].userNo+"','','top=0, left=700, width=500, height=600')'");
+    //                     }
+    //                     $('#tableBody').html(tableTd);
+    //                 }
+    //             }
+    //     )
+    //
+    // })
+
+
+    // 회원 목록 불러오기
+    $("#admin-user-list").click(function () {
+        $("#main-content").load("/allUserList");
+
+        // $.ajax(
+        //         {
+        //             type: "GET",
+        //             url: "/allUserList",
+        //             dataType : "text" ,
+        //             success: function (result) {
+        //                 $('#main-content').html(tableTd);
+        //             }
+        //         }
+        // )
+
+    })
+
+    // 전체 포인트 내역 불러오기
+    $("#admin-point").click(function () {
+        $("#main-content").load("/adminPoint");
+
+    })
+
+    // 고객센터 불러오기
+    $("#admin-notice").click(function () {
+        $("#main-content").load("/adminNotice");
+
+    })
+
+
+
+
+</script>
+{{>layouts/footer}}
+{{/loginUser}}
+{{^loginUser}}
+    <script>
+        $(document).ready(function () {
+            alert("로그인이 필요합니다.")
+            window.location.replace("http://localhost:8985/login");
+        });
+    </script>
+{{/loginUser}}

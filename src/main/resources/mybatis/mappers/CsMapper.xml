@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="CsMapper">
+    <resultMap id="CsResultMap" type="com.kh.mango.cs.domain.Cs">
+        <id property="csNo" column="CS_NO"/>
+        <result property="csCategory" column="CS_CATEGORY"/>
+        <result property="csSubject" column="CS_SUBJECT"/>
+        <result property="csContent" column="CS_CONTENT"/>
+        <result property="csDate" column="CS_DATE"/>
+        <result property="userNo" column="USER_NO"/>
+        <result property="userName" column="USER_NAME"/>
+    </resultMap>
+
+<!--    <resultMap id="nDetailResultMap" type="com.kh.mango.cs.domain.nDetail">-->
+<!--        <id property="csSubject" column="CS_SUBJECT"/>-->
+<!--        <result property="csContent" column="CS_CONTENT"/>-->
+<!--        <result property="userName" column="USER_NAME"/>-->
+<!--        <result property="csDate" column="CS_DATE"/>-->
+<!--    </resultMap>-->
+
+
+    <insert id="insertNotice">
+        INSERT INTO CS_TBL VALUES (SEQ_CSNO.NEXTVAL, '1', #{csSubject}, #{csContent}, DEFAULT, '62')
+    </insert>
+    <insert id="insertQna">
+        INSERT INTO CS_TBL VALUES (SEQ_CSNO.NEXTVAL, '2', #{csSubject}, #{csContent}, DEFAULT, #{userNo})
+    </insert>
+    <update id="updateNotice">
+        UPDATE CS_TBL SET CS_SUBJECT = #{csSubject}, CS_CONTENT = #{csContent} WHERE CS_NO = #{csNo}
+    </update>
+    <update id="updateQna">
+        UPDATE CS_TBL SET CS_SUBJECT = #{csSubject}, CS_CONTENT = #{csContent} WHERE CS_NO = #{csNo}
+    </update>
+    <delete id="deleteNotice">
+        DELETE FROM CS_TBL WHERE CS_NO = #{csNo}
+    </delete>
+    <delete id="deleteQna">
+        DELETE FROM CS_TBL WHERE CS_NO = #{csNo}
+    </delete>
+    <select id="selectNoticeList" resultMap="CsResultMap">
+        SELECT C.*, U.USER_NAME FROM CS_TBL C JOIN USER_TBL U ON U.USER_NO = C.USER_NO WHERE CS_CATEGORY = 1 ORDER BY CS_DATE DESC
+    </select>
+    <select id="selectQnaList" resultMap="CsResultMap">
+        SELECT C.*, U.USER_NAME FROM CS_TBL C JOIN USER_TBL U ON U.USER_NO = C.USER_NO WHERE CS_CATEGORY = 2 ORDER BY CS_DATE DESC
+    </select>
+    <select id="selectOneByNo" resultMap="CsResultMap">
+        SELECT C.*, U.USER_NAME FROM CS_TBL C JOIN USER_TBL U ON U.USER_NO = C.USER_NO WHERE CS_CATEGORY = 1 AND CS_NO = #{csNo}
+    </select>
+    <select id="selectQnaOneByNo" resultMap="CsResultMap">
+        SELECT C.*, U.USER_NAME FROM CS_TBL C JOIN USER_TBL U ON U.USER_NO = C.USER_NO WHERE CS_CATEGORY = 2 AND CS_NO = #{csNo}
+    </select>
+
+    <select id="selectListByKeyword" resultMap="CsResultMap">
+        SELECT C.*, U.USER_NAME FROM CS_TBL C JOIN USER_TBL U ON U.USER_NO = C.USER_NO
+        <where>
+            <if test="searchCondition == 'subject'">
+                '1' = '1' AND  CS_SUBJECT LIKE '%' || #{searchValue} || '%'
+            </if>
+            <if test="searchCondition == 'content'">
+                '1' = '1' AND  CS_CONTENT LIKE '%' || #{searchValue} || '%'
+            </if>
+            <if test="searchCondition == 'userName'">
+                '1' = '1' AND  USER_NAME LIKE '%' || #{searchValue} || '%'
+            </if>
+            and CS_CATEGORY = 1
+        </where>
+        ORDER BY ROWNUM DESC
+    </select>
+    <select id="selectQnaListByKeyword" resultMap="CsResultMap">
+        SELECT C.*, U.USER_NAME FROM CS_TBL C JOIN USER_TBL U ON U.USER_NO = C.USER_NO
+        <where>
+            <if test="searchCondition == 'all'">
+                '1' = '1' AND  CS_SUBJECT LIKE '%' || #{searchValue} || '%'
+                OR  CS_CONTENT LIKE '%' || #{searchValue} || '%'
+                OR  USER_NAME LIKE '%' || #{searchValue} || '%'
+            </if>
+            <if test="searchCondition == 'subject'">
+                '1' = '1' AND  CS_SUBJECT LIKE '%' || #{searchValue} || '%'
+            </if>
+            <if test="searchCondition == 'content'">
+                '1' = '1' AND  CS_CONTENT LIKE '%' || #{searchValue} || '%'
+            </if>
+            <if test="searchCondition == 'userName'">
+                '1' = '1' AND  USER_NAME LIKE '%' || #{searchValue} || '%'
+            </if>
+             and CS_CATEGORY = 2
+        </where>
+        ORDER BY ROWNUM DESC
+    </select>
+    <select id="getNoticeListCount" resultType="_int">
+        SELECT COUNT(*) FROM CS_TBL WHERE CS_CATEGORY = 1
+    </select>
+    <select id="getQnaListCount" resultType="_int">
+        SELECT COUNT(*) FROM CS_TBL WHERE CS_CATEGORY = 2
+    </select>
+
+    <select id="getNoticeSearchListCount" resultType="_int">
+        SELECT COUNT(*) FROM CS_TBL C JOIN USER_TBL U ON U.USER_NO = C.USER_NO
+        <where>
+            <if test="searchCondition == 'subject'">
+                '1' = '1' AND  CS_SUBJECT LIKE '%' || #{searchValue} || '%'
+            </if>
+            <if test="searchCondition == 'content'">
+                '1' = '1' AND  CS_CONTENT LIKE '%' || #{searchValue} || '%'
+            </if>
+            <if test="searchCondition == 'userName'">
+                '1' = '1' AND  USER_NAME LIKE '%' || #{searchValue} || '%'
+            </if>
+            and CS_CATEGORY = 1
+        </where>
+        ORDER BY ROWNUM DESC
+    </select>
+    <select id="getQnaSearchListCount" resultType="_int">
+        SELECT COUNT(*) FROM CS_TBL C JOIN USER_TBL U ON U.USER_NO = C.USER_NO
+        <where>
+            <if test="searchCondition == 'subject'">
+                '1' = '1' AND  CS_SUBJECT LIKE '%' || #{searchValue} || '%'
+            </if>
+            <if test="searchCondition == 'content'">
+                '1' = '1' AND  CS_CONTENT LIKE '%' || #{searchValue} || '%'
+            </if>
+            <if test="searchCondition == 'userName'">
+                '1' = '1' AND  USER_NAME LIKE '%' || #{searchValue} || '%'
+            </if>
+            and CS_CATEGORY = 2
+        </where>
+        ORDER BY ROWNUM DESC
+    </select>
+
+</mapper>

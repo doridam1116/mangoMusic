@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mango Music</title>
+    <link rel="stylesheet" href="../admin.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-Mc5Qjl0LCzJmr8vYE7X1CPkZXIL+7nWgpC8+K7V/cIkYpPck+VWcdx/zecT77Jlk70I+LzSzm1np99kaJvAnQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+    <link rel="stylesheet" href="./Album/styles.css" />
+</head>
+
+<body>
+<div class="navbar-custom d-none d-lg-block d-xl-block d-xxl-block">
+    <ul class="navbar-nav">
+        <li class="nav-item my-3">
+            <div class="text-light heading d-flex align-items-center justify-content-flex-start mt-3">
+                <i class="fa-regular fa-mango mx-3 p-1"></i> Mango Music
+            </div>
+        </li>
+        <li class="nav-item">
+            <button type="button"
+                    class="btn w-100 h-50 py-md-2 text-light button-hover text-left d-flex align-items-center justify-content-around"
+                    style="height: 60px">
+                <i class="fa-solid fa-house mx-3"></i>
+                <div class="w-75 d-flex">
+                    <a class="gotohome" href="./index.html">홈</a>
+                </div>
+            </button>
+        </li>
+        <li class="nav-item">
+            <button type="button"
+                    class="btn w-100 h-50 py-md-2 text-light button-hover text-left d-flex align-items-center justify-content-around"
+                    style="height: 60px">
+                <i class="fa-solid fa-magnifying-glass mx-3"></i>
+                <div class="w-75 d-flex">
+                    <a class="gotohome" href="./Search/search.html">검색하기</a>
+                </div>
+            </button>
+        </li>
+        <li class="nav-item">
+            <button type="button"
+                    class="btn w-100 h-50 py-md-2 text-light button-hover text-left d-flex align-items-center justify-content-around"
+                    style="height: 60px">
+                <i class="fa-regular fa-bookmark mx-3"></i>
+                <div class="w-75 d-flex">내 라이브러리</div>
+            </button>
+        </li>
+        <li class="nav-item margin-top">
+            <button type="button"
+                    class="btn w-100 h-50 py-md-2 text-light button-hover text-left d-flex align-items-center justify-content-around"
+                    style="height: 60px">
+                <i class="fa-solid fa-plus mx-2"></i>
+                <div class="w-75 d-flex">플레이리스트 만들기</div>
+            </button>
+        </li>
+        <li class="nav-item">
+            <button type="button"
+                    class="btn w-100 h-50 py-md-2 text-light button-hover text-left d-flex align-items-center justify-content-around"
+                    style="height: 60px">
+                <i class="fa-solid fa-heart mx-2"></i>
+                <div class="w-75 d-flex">좋아요 표시한 곡</div>
+            </button>
+        </li>
+    </ul>
+
+    <div>
+        <span class="m-3 download"><i class="fa-regular fa-circle-down mt-3"></i> Install App</span>
+    </div>
+</div>
+<main class="body">
+    <nav class="navbar sticky-top mb-3">
+<!--        <div class="d-flex align-items-center justify-content-between">-->
+<!--            <div class="d-flex"></div>-->
+<!--            <i class="fa-solid fa-chevron-left chevrons"></i><i class="fa-solid fa-chevron-right chevrons"></i>-->
+<!--        </div>-->
+
+        <div class="d-flex align-items-center" id="rightnav">
+            <div style="margin-right: 1rem">
+                <button type="button" class="btn btn-outline-white text-light" style="border-radius: 20px">
+                    업그레이드
+                </button>
+            </div>
+            <div class="dropdown">
+                <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1"
+                        data-bs-toggle="dropdown" aria-expanded="false" style="border-radius: 25px;">
+                    <img src="https://i.pinimg.com/564x/08/35/96/083596835424340eda90439fd20e5ee9.jpg"
+                         style="width: 30px; height: 30px; border-radius: 50%" />
+                    &nbsp;&nbsp;KiteWrld&nbsp;&nbsp;
+                </button>
+                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton1">
+                    <li><a class="dropdown-item" href="./Login/login.html">로그아웃</a></li>
+                </ul>
+            </div>
+        </div>
+        </div>
+    </nav>
+    <br>
+    <div id="admin">
+        <div id="main-header">
+            Admin Page
+        </div>
+        <div id="main">
+            <div id="main1">
+                회원 목록
+                <div id="user-list">
+                    <table class="table" style="color: #b6b6b6">
+                        <tr>
+                            <th>프로필</th>
+                            <th>이름</th>
+                        </tr>
+                        <tr>
+                            <td>내용</td>
+                            <td>내용</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div id="main2">
+                <div id="main2-1">
+                    전체 포인트 내역 <br>
+                    <div id="point">
+                        <b>300,000P</b> <br>
+                        <button type="button" id="point-btn">포인트 내역 보기</button>
+                    </div>
+                </div>
+                <div id="main2-2">
+                    공지사항 / Q&A <br>
+                    <div id="qna">
+                        <button type="button" id="point-btn">공지사항 페이지</button>
+                        <br>
+                        <button type="button" id="point-btn">Q&A 페이지</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</main>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/8539ff3369.js" crossorigin="anonymous"></script>
+<script src="home.js"></script>
+</body>
+
+</html>

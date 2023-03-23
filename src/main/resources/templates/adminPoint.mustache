@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #table-header {
+            display: flex;
+            --justify-content: space-between;
+            padding: 20px;
+        }
+        .point-value {
+            font-size: 30px;
+            color: #e86536;
+        }
+        #table-search {
+            float: right;
+        }
+        tr:hover {
+            color: white;
+        }
+        #submit {
+            font-size: 30px;
+        }
+        #user-list {
+            font-size: 20px;
+            font-weight: normal;
+            padding: 20px;
+            /*padding-right: 150px;*/
+            /*padding-top: 20px;*/
+            /*padding-left: 20px;*/
+        }
+
+        /*table {*/
+        /*    width: inherit;*/
+        /*    height: 500px;*/
+        /*    text-align: center;*/
+        /*}*/
+    </style>
+</head>
+<body>
+<div id="table-header">
+    <div id="submit">전체 포인트</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <input type="hidden" value="{{adminPoint}}" class="point-val">
+    <div class="point-value">
+        <b><span class="point-val-re"></span></b>
+        <span class="point-value-text">Mango</span>
+    </div>
+</div>
+<div id="user-list" style="overflow: scroll; height: 500px;">
+    <table class="table" style="color: #b6b6b6; font-size : 16px">
+        <thead class="thead-light">
+        <tr>
+            <th>아이디</th>
+            <th>분류</th>
+            <th>금액</th>
+            <th>충전일시</th>
+        </tr>
+        </thead>
+        <input type="hidden">
+                       <tbody id="tableBody" >
+        {{#recordList}}
+<!--            <tr onclick="window.open('/admin/userInfo?userNo=','','top=0, left=700, width=500, height=600')">-->
+            <td>{{userId}}</td>
+            <td>{{pointPM}}</td>
+            <td>{{pointRecord}}</td>
+            <td>{{pointRecordDate}}</td>
+            <tr>
+        {{/recordList}}
+        </tbody>
+
+        <!--                        <tr align="center">-->
+        <!--                            <td colspan="3">-->
+
+        <!--                            </td>-->
+        <!--                        </tr>-->
+    </table>
+</div>
+</body>
+<script>
+    //  포인트 잔량 정규 표현식
+    var pointVal = document.querySelector(".point-val").value;
+    document.querySelector(".point-val-re").innerHTML = pointVal.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+</script>
+</html>

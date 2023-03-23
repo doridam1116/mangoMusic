@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="FollowMapper">
+
+    <resultMap id="searchUserMap" type="com.kh.mango.follow.domain.FollowYn">
+        <id property="userNo" column="USER_NO"/>
+        <result property="userName" column="USER_NAME"/>
+        <result property="userId" column="USER_ID"/>
+        <result property="userNo_F" column="USER_NO_F"/>
+    </resultMap>
+
+    <insert id="insertFollowUser">
+        INSERT INTO FOLLOW_TBL VALUES(#{followNo},#{userNo})
+    </insert>
+
+    <select id="followingUserList" resultType="com.kh.mango.follow.domain.Follow">
+        SELECT USER_NO FROM FOLLOW_TBL WHERE FOLLOW_NO= #{userNo}
+    </select>
+
+<!--    <select id="searchUser" resultType="com.kh.mango.user.domain.User">-->
+<!--        SELECT * FROM USER_TBL WHERE (USER_ID LIKE '%' || #{searchValue} ||'%' or USER_NAME LIKE '%' || #{searchValue} ||'%') and USER_NO != #{userNo}-->
+<!--    </select>-->
+
+    <select id="searchUser" resultMap="searchUserMap">
+        SELECT u.user_no, u.user_name, u.user_id, f.user_no as USER_NO_F FROM USER_TBL u full outer join follow_tbl f on u.user_no = f. follow_no
+        WHERE u.user_no not in (select user_no from follow_tbl group by user_no) and (u.USER_ID LIKE '%' || #{searchValue} ||'%' or u.USER_NAME LIKE '%' || #{searchValue} ||'%') and u.USER_ID != #{userId} and u.USER_ID != 'admin'
+    </select>
+
+</mapper>

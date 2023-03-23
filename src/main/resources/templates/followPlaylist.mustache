@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<div id="table-header">
+    <div id="header"> {{userName}}님의 플레이리스트</div>
+    <!--    <div id="table-search">-->
+    <!--        <input type="text" id="search-input" name="searchValue" placeholder="검색어 입력" style="width: 300px; height: 30px">-->
+    <!--        <input type="submit" value="검색" id="searchUserList">-->
+    <!--    </div>-->
+</div>
+<div id="user-list">
+    <table class="table" style="color: #b6b6b6; font-size : 16px; text-align: center;">
+        <thead class="thead-light">
+        <tr>
+            <th>가수</th>
+            <th>제목</th>
+        </tr>
+        </thead>
+
+        <tbody id="tableBody">
+        {{#followPlaylist}}
+            <tr>
+                <td>{{playlistArtist}}</td>
+                <td>{{playlistSong}}</td>
+            <tr>
+        {{/followPlaylist}}
+        </tbody>
+
+        <!--                        <tr align="center">-->
+        <!--                            <td colspan="3">-->
+
+        <!--                            </td>-->
+        <!--                        </tr>-->
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,146 @@
+{{>layouts/sidebar}}
+<link rel="stylesheet" href="css/notice.css" />
+<main>
+    <nav class="navbar sticky-top mb-3" id="navbar-mypage">
+        <div class="d-flex align-items-center justify-content-between" id="d-flex-mypage">
+            <div class="d-flex"></div>
+            <!-- <i class="fa-solid fa-chevron-left chevrons"></i><i class="fa-solid fa-chevron-right chevrons"></i> -->
+        </div>
+
+        <div class="d-flex align-items-center" id="rightnav">
+            <div style="margin-right: 1rem">
+            </div>
+            {{#loginUser}}
+                <div class="dropdown" id="myPageDropDown">
+                    <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1"
+                            data-bs-toggle="dropdown" aria-expanded="false" style="border-radius: 25px;">
+                        <!-- 유저 이미지 -->
+                        {{#loginUser.userFilename}}
+                            <img src="{{loginUser.userFilename}}"
+                                 style="width: 30px; height: 30px; border-radius: 50%" class="dropdown-pic"/>
+                        {{/loginUser.userFilename}}
+                        {{^loginUser.userFilename}}
+                            <img src="../img/abstract-user-flat-3.svg"
+                                 style="width: 30px; height: 30px; border-radius: 50%" class="dropdown-pic"/>
+                        {{/loginUser.userFilename}}
+                        <!-- 유저이름 -->
+                        &nbsp;&nbsp;{{userName}}&nbsp;&nbsp;
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton1">
+                        {{#loginUser.userType}}
+                            <li><a class="dropdown-item" href="/admin">관리자페이지</a></li>
+                        {{/loginUser.userType}}
+                        {{^loginUser.userType}}
+                            <li><a class="dropdown-item" href="/mypage">마이페이지</a></li>
+                        {{/loginUser.userType}}
+                        <li><a class="dropdown-item" href="/logout">로그아웃</a></li>
+                    </ul>
+                </div>
+            {{/loginUser}}
+            {{^loginUser}}
+                <button type="button" onclick="location.href='/login'" class="btn btn-dark dropdown-toggle2" >로그인</button>
+            {{/loginUser}}
+        </div>
+    </nav>
+    <div id="main-all">
+            <div class="main-header">
+                <h2>Q&A</h2>
+                <hr>
+            </div>
+            <div class="notice_content_container">
+                <aside>
+                    <table class="notice_category">
+                        <tbody>
+                        <tr>
+                            <td class="side_td">
+                                <a href="/notice">공지사항</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="side_td">
+                                <a href="/qna">Q&A</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </aside>
+                <div class="notice_all_container">
+                    <table class="notice_all">
+                        <thead>
+                            <tr id="tr_th">
+                                <th class="table_no">
+                                    번호
+                                </th>
+                                <th class="table_subject">
+                                    제목
+                                </th>
+                                <th class="table_writer">
+                                    작성자
+                                </th>
+                                <th class="table_day">
+                                    작성날짜
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="tbody box1">
+                        <form action="/qna">
+                            {{#qnaList}}
+                            <tr class="noticeList">
+                                <td class="td_no">
+                                    {{rowNum}}
+                                </td>
+                                <td class="td_subject">
+                                    <a href="/qnaDetail?csNo={{csNo}}">{{csSubject}}</a>
+                                </td>
+                                <td class="td_writer">
+                                    {{userName}}
+                                </td>
+                                <td class="td_day">
+                                    {{csDate}}
+                                </td>
+                            </tr>
+                            {{/qnaList}}
+                        </form>
+                        </tbody>
+<!--                        </div>-->
+                        <tfoot>
+                            <tr align="center" class="tf_f">
+                                <td class="td_page" colspan="3">
+                                    {{{paging}}}&nbsp;&nbsp;
+                                </td>
+                            <form action="/qnaWrite">
+                                {{#loginUser}}
+                                    {{^loginUser.userType}}
+                                        <td class="tf_right"><button type="button" class="td_btn" onclick="location.href = '/qnaWrite'">글쓰기</button></td>
+                                    {{/loginUser.userType}}
+                                {{/loginUser}}
+                            </form>
+                            </tr>
+                            <tr class="tfoot">
+                                <td colspan="4" class="tf_left">
+                                    <form action="/qnaSearch" method="get">
+                                        <select name="searchCondition">
+                                            <option class="option" value="all">전체</option>
+                                            <option class="option" value="userName">작성자</option>
+                                            <option class="option" value="subject">제목</option>
+                                            <option class="option" value="content">내용</option>
+                                        </select>
+                                        <input type="text" class="input_text" name="searchValue" placeholder="검색어를 입력해주세요.">
+                                        <input type="submit" class="input_submit" value="검색">
+                                    </form>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+    </div>
+    <script>
+        {{^search}}
+            window.onload = function() {
+                alert("정보가 없는 검색어입니다.")
+            }
+        {{/search}}
+    </script>
+        </main>
+{{>layouts/footer}}

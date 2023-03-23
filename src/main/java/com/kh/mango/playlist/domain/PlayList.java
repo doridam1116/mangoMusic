@@ -9,8 +9,9 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PlayList {
-    private int playListNo;
-    private String musicMBID;
-    private String playListName;
+
     private int userNo;
+    private String playlistSong;
+    private String playlistArtist;
+
 }

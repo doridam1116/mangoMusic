@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원 상세 페이지</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500&display=swap');
+        body {
+            color: #ffffff;
+            background-color: #343a40;
+            font-family: 'Noto Sans KR', sans-serif;
+            background-image: linear-gradient(to top,
+            #121212,
+            #121212,
+            #121212,
+            #121212,
+            #121212,
+            #161419,
+            #1a151e,
+            #201522,
+            #311327,
+            #430d24,
+            #53051b,
+            #5e0506);
+            background-size: cover;
+            height: 100%;
+            overflow: auto;
+            overflow-x: hidden;
+            background-attachment: fixed;
+        }
+
+        h2 {
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 25px;
+            text-align: center;
+        }
+
+        #user_add {
+            width: 400px;
+            text-align: center;
+            margin: 0 auto;
+        }
+
+        ul {
+            list-style-type: none;
+            --padding-left: 0;
+        }
+
+        li {
+            margin:10px;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        #user_info li label {
+            width: 50px;
+            text-align: left;
+            float: left;
+        }
+
+
+        fieldset {
+            border: 3px dashed #6e6e6e;
+        }
+
+        fieldset legend {
+            font-family: 'Noto Sans KR', sans-serif;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        select {
+            width: 170px;
+        }
+
+
+
+        input[type=button] {
+            width: 200px;
+            height: 35px;
+            background-color:antiquewhite;
+            --border: 1px solid #ccc;
+            --box-shadow: 1px 1px 1px #ccc;
+            text-align: center;
+            font-weight: bold;
+            cursor: pointer;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        #button-area {
+            margin-top: 40px;
+            text-align: center;
+            --padding: 10px;
+            --border-radius: 20px;
+        }
+
+    </style>
+</head>
+<body>
+<br>
+<h2>회원 상세정보</h2>
+<br>
+
+<div id="user_add">
+    <fieldset>
+
+        <ul id="user_info">
+            <li>
+                <label for="name">ID</label>
+                <input type="text" value="{{user.userId}}" readonly>
+            </li>
+            <li>
+                <label for="email">이름</label>
+                <input type="text" value="{{user.userName}}" >
+            </li>
+            <li>
+                <label for="email">이메일</label>
+                <input type="text" value="{{user.userEmail}}">
+            </li>
+            <li>
+                <label for="phone">성별</label>
+                <input type="text" value="{{user.userGender}}" readonly>
+            </li>
+            <li>
+                <label for="d-day">가입일</label>
+                <input type="text" value="{{user.userDate}}" readonly>
+            </li>
+        </ul>
+    </fieldset>
+</div>
+
+<div id="button-area">
+    <p id="input"><input type="button" value="닫기" onclick="self.close()"></p>
+</div>
+</body>
+</html>

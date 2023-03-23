@@ -1,33 +1,109 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-
-
 <mapper namespace="UserMapper">
 
-    <resultMap type="com.kh.mango.user.domain.Mypage" id="myPageResultMap">
+    <resultMap type="com.kh.mango.user.domain.MyPage" id="myPageResultMap">
         <id property="userNo" column="USER_TBL.USER_NO" />
         <result property="userId" column="USER_ID" />
         <result property="userPw" column="MEMBER_PW" />
         <result property="userName" column="USER_NAME" />
         <result property="userEmail" column="USER_EMAIL" />
         <result property="userGender" column="USER_GENDER" />
-        <result property="userType" column="USER_TYPE" />
+        <result property="userType" column="USER_TYPE" javaType="Integer"/>
         <result property="userDate" column="USER_DATE" />
         <result property="userFilename" column="USER_FILENAME" />
         <result property="userFilepath" column="USER_FILEPATH" />
         <result property="userProfileLetter" column="USER_PROFILE_LETTER" />
-        <result property="pointVal" column="POINT_TBL.pointVal" />
+        <result property="pointVal" column="POINT_VAL" />
+    </resultMap>
+
+    <resultMap id="myPageFollowersResultMap" type="com.kh.mango.user.domain.MyPageFollow">
+        <id property="followNo" column="FOLLOW_NO"/>
+        <result property="userNo" column="USER_NO"/>
+        <result property="userId" column="USER_ID"/>
+        <result property="userName" column="USER_NAME"/>
+        <result property="userGender" column="USER_GENDER"/>
     </resultMap>
 
 
+    <insert id="insertUser">
+        {CALL DECLARE
+            BEGIN
+            INSERT INTO USER_TBL VALUES(SEQ_USER_NO.NEXTVAL, #{userId}, #{userPw}, #{userName}, #{userEmail}, #{userGender}, null, DEFAULT, '', '', '');
+            INSERT INTO POINT_TBL VALUES(SEQ_USER_NO.CURRVAL, 0, NULL);
+            END
+            }
+
+    </insert>
+    <insert id="insertPoint">
+        INSERT INTO POINT_TBL VALUES (SEQ_USER_NO.CURRENTVAL, 0, NULL)
+    </insert>
+
+
     <select id="test" resultType="com.kh.mango.user.domain.User">
-        SELECT * FROM USER_TBL
+        SELECT * FROM USER_TBL WHERE USER_ID != 'admin' ORDER BY USER_NO ASC
+    </select>
+    <select id="checkUserLogin" resultType="com.kh.mango.user.domain.User">
+        SELECT A.*,P.POINT_VAL FROM USER_TBL A JOIN POINT_TBL P ON A.USER_NO = P.USER_NO  WHERE USER_ID = #{userId} AND USER_PW = #{userPw}
     </select>
 
-    <select id="selectUser" resultType="com.kh.mango.user.domain.Mypage">
-        SELECT USER_TBL.USER_NO, USER_ID, USER_PW, USER_NAME, USER_EMAIL, USER_GENDER, USER_TYPE, USER_DATE, USER_FILENAME, USER_FILEPATH, USER_PROFILE_LETTER, POINT_TBL.POINT_VAL FROM USER_TBL RIGHT OUTER JOIN POINT_TBL ON USER_TBL.USER_NO = POINT_TBL.USER_NO WHERE USER_TBL.USER_NO = 2
+    <select id="selectFindId" resultType="com.kh.mango.user.domain.User">
+        SELECT * FROM USER_TBL WHERE USER_NAME = #{userName} AND USER_EMAIL = #{userEmail}
     </select>
 
+    <select id="selectUserPw" resultType="com.kh.mango.user.domain.User">
+        SELECT * FROM USER_TBL WHERE USER_ID = #{userId} AND USER_NAME = #{userName} AND USER_EMAIL = #{userEmail}
+    </select>
 
+    <update id="updateUserPw">
+        UPDATE USER_TBL SET USER_PW = #{userPw} WHERE USER_ID = #{userId}
+    </update>
+
+    <select id="selectUserByMyPage" resultMap="myPageResultMap">
+        SELECT USER_TBL.USER_NO, USER_ID, USER_PW, USER_NAME, USER_EMAIL, USER_GENDER, USER_TYPE, USER_DATE, USER_FILENAME, USER_FILEPATH, USER_PROFILE_LETTER, POINT_TBL.POINT_VAL FROM USER_TBL right outer join POINT_TBL on USER_TBL.USER_NO = POINT_TBL.USER_NO WHERE USER_TBL.USER_NO = #{userNo}
+    </select>
+
+    <select id="searchUser" resultType="com.kh.mango.user.domain.User">
+        SELECT * FROM USER_TBL WHERE (USER_ID LIKE '%' || #{searchValue} ||'%' or USER_NAME LIKE '%' || #{searchValue} ||'%') AND USER_ID != 'admin'
+    </select>
+    <select id="selectFollowers" resultMap="myPageFollowersResultMap">
+        SELECT F.FOLLOW_NO, U.USER_NO, U.USER_ID, U.USER_NAME, U.USER_GENDER  FROM USER_TBL U, FOLLOW_TBL F WHERE F.FOLLOW_NO = #{userNo} AND F.USER_NO = U.USER_NO
+    </select>
+    <select id="selectDeals" resultType="com.kh.mango.user.domain.MyPageDeals">
+        SELECT * FROM DEAL_TBL WHERE (BUYER_NO = #{userNo} and deal_type = '구매') OR (SELLER_NO =#{userNo} and deal_type = '판매')
+    </select>
+    <select id="selectLikes" resultType="com.kh.mango.user.domain.Like">
+        SELECT * FROM LIKE_TBL WHERE USER_NO = #{userNo}
+    </select>
+
+    <select id="selectOneByNumber" resultType="com.kh.mango.user.domain.User">
+        SELECT * FROM USER_TBL WHERE USER_NO = #{userNo}
+    </select>
+
+    <select id="selectPointRecord" resultType="com.kh.mango.point.domain.PointRecord">
+        SELECT * FROM POINT_RECORD_TBL WHERE USER_NO = #{userNo} ORDER BY POINT_RECORD_DATE DESC
+    </select>
+
+    <select id="selectUserList" resultType="com.kh.mango.user.domain.UserSearch">
+        SELECT USER_NO, USER_ID, USER_NAME FROM USER_TBL WHERE  ( USER_ID LIKE '%' || #{userId} || '%')
+    </select>
+
+    <select id="getListCount" resultType="_int">
+        select count(*) from user_tbl
+    </select>
+    <select id="selectUserProfile" resultType="com.kh.mango.user.domain.User">
+        SELECT USER_NAME, USER_PROFILE_LETTER FROM USER_TBL WHERE USER_NO = ${userNo}
+    </select>
+    <select id="selectUserListByNo" resultType="com.kh.mango.user.domain.UserSearch">
+        SELECT USER_NO, USER_ID, USER_NAME FROM USER_TBL WHERE  USER_NO = ${userNo}
+    </select>
+
+    <update id="updateUserProfile">
+        UPDATE USER_TBL SET USER_NAME = #{userName}, USER_PROFILE_LETTER = #{userProfileLetter} WHERE USER_NO = ${userNo}
+    </update>
+
+    <update id="updateUserProfilePic">
+        UPDATE USER_TBL SET USER_FILENAME = #{userFilename}, USER_FILEPATH = #{userFilepath} WHERE USER_NO = #{userNo}
+    </update>
 </mapper>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>아이디 찾기</title>
+    <link rel="stylesheet" href="findId.css" />
+    <script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js"charset="utf-8"></script>
+</head>
+<body>
+<a class="main-logo" href="/index">
+    <div class="text-light heading d-flex align-items-center justify-content-flex-start mt-3">
+        <i class="fa-regular fa-mango mx-3 p-1"></i> Mango Music
+    </div>
+</a>
+<div class="find-box">
+    <form method="post" action="/findPw" id="find-form">
+        <h2>비밀번호 찾기</h2>
+        <div class="user-box">
+            <label>ID</label>
+            <input type="text" class="find" name="userId" placeholder="ID를 입력해주세요.">
+        </div>
+        <div class="user-box">
+            <label>NAME</label>
+            <input type="text" class="find" name="userName" placeholder="이름을 입력해주세요.">
+        </div>
+        <div class="user-box">
+            <label>EMAIL</label>
+            <input type="text" class="find" name="userEmail" placeholder="이메일을 입력해주세요.">
+        </div>
+
+        <div id="find-btn">
+            <button type="submit" class="find-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                SUBMIT
+            </button>
+        </div>
+    </form>
+</div>
+<script>
+    {{#error}}
+        window.onload = function () {
+            alert("아이디 or 이름 or 이메일을 잘못 입력하셧습니다.")
+        }
+    {{/error}}
+</script>
+</body>
+</html>

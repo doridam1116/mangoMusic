@@ -1,0 +1,71 @@
+{{>layouts/sidebar}}
+<link rel="stylesheet" href="css/notice_wr.css" />
+<main>
+    <nav class="navbar sticky-top mb-3" id="navbar-mypage">
+        <div class="d-flex align-items-center justify-content-between" id="d-flex-mypage">
+            <div class="d-flex"></div>
+            <!-- <i class="fa-solid fa-chevron-left chevrons"></i><i class="fa-solid fa-chevron-right chevrons"></i> -->
+        </div>
+
+        <div class="d-flex align-items-center" id="rightnav">
+            <div style="margin-right: 1rem">
+            </div>
+            {{#loginUser}}
+                <div class="dropdown" id="myPageDropDown">
+                    <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1"
+                            data-bs-toggle="dropdown" aria-expanded="false" style="border-radius: 25px;">
+                        <!-- 유저 이미지 -->
+                        {{#loginUser.userFilename}}
+                            <img src="{{loginUser.userFilename}}"
+                                 style="width: 30px; height: 30px; border-radius: 50%" class="dropdown-pic"/>
+                        {{/loginUser.userFilename}}
+                        {{^loginUser.userFilename}}
+                            <img src="../img/abstract-user-flat-3.svg"
+                                 style="width: 30px; height: 30px; border-radius: 50%" class="dropdown-pic"/>
+                        {{/loginUser.userFilename}}
+                        <!-- 유저이름 -->
+                        &nbsp;&nbsp;{{userName}}&nbsp;&nbsp;
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton1">
+                        {{#loginUser.userType}}
+                            <li><a class="dropdown-item" href="/admin">관리자페이지</a></li>
+                        {{/loginUser.userType}}
+                        {{^loginUser.userType}}
+                            <li><a class="dropdown-item" href="/mypage">마이페이지</a></li>
+                        {{/loginUser.userType}}
+                        <li><a class="dropdown-item" href="/logout">로그아웃</a></li>
+                    </ul>
+                </div>
+            {{/loginUser}}
+            {{^loginUser}}
+                <button type="button" onclick="location.href='/login'" class="btn btn-dark dropdown-toggle2" >로그인</button>
+            {{/loginUser}}
+        </div>
+    </nav>
+    <div id="main-all">
+        <div class="main-header">
+            <h2>Q&A</h2>
+            <hr>
+        </div>
+        <div class="main-body">
+            <form action="/qnaModify" method="post">
+                <input type="hidden" name="csNo" value="{{cs.csNo}}">
+                <div class="writer">
+                    <div class="title">
+                        <label>제목</label> <br>
+                        <input type="text" class="title_text" name="csSubject" value="{{cs.csSubject}}">
+                    </div>
+                    <div>
+                        <label>내용</label> <br>
+                        <textarea name="csContent" rows="30" cols="200">{{cs.csContent}}</textarea>
+                    </div>
+                    <div class="div_btn">
+                        <input type="submit" class="button" value="수정하기">
+                        <input type="reset" class="button" value="취소">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+{{>layouts/footer}}

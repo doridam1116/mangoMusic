@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원 상세 페이지</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500&display=swap');
+        body {
+            color: #ffffff;
+            background-color: #343a40;
+            font-family: 'Noto Sans KR', sans-serif;
+            background-image: linear-gradient(to top,
+            #121212,
+            #121212,
+            #121212,
+            #121212,
+            #121212,
+            #161419,
+            #1a151e,
+            #201522,
+            #311327,
+            #430d24,
+            #53051b,
+            #5e0506);
+            background-size: cover;
+            height: 100%;
+            overflow: auto;
+            overflow-x: hidden;
+            background-attachment: fixed;
+        }
+
+        h2 {
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 25px;
+            text-align: center;
+        }
+
+        #user_add {
+            width: 400px;
+            text-align: center;
+            margin: 0 auto;
+        }
+
+
+        #user_info li label {
+            width: 50px;
+            text-align: left;
+            float: left;
+        }
+
+
+        fieldset {
+            border: 3px dashed #6e6e6e;
+        }
+
+        fieldset legend {
+            font-family: 'Noto Sans KR', sans-serif;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        select {
+            width: 170px;
+        }
+
+        #search {
+            text-align: center;
+        }
+
+        h5 {
+            text-align: center;
+            font-family: 'Noto Sans KR', sans-serif;
+            color: #e0e0e0;
+        }
+
+        td, tr, th {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+
+        #follow-btn {
+            width: 70px;
+            height: 30px;
+            background-color: #bebebe;
+            cursor: pointer;
+        }
+
+        #follow-btn:hover {
+            background-color: #e5e5e5;
+            cursor: pointer;
+        }
+
+
+
+        input[type=button] {
+            width: 200px;
+            height: 35px;
+            background-color:antiquewhite;
+            --border: 1px solid #ccc;
+            --box-shadow: 1px 1px 1px #ccc;
+            text-align: center;
+            font-weight: bold;
+            cursor: pointer;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        #button-area {
+            margin-top: 40px;
+            text-align: center;
+            --padding: 10px;
+            --border-radius: 20px;
+        }
+
+    </style>
+</head>
+<body>
+<br>
+<h2>회원 검색</h2>
+<br>
+<input type="hidden" id="userNo" value="{{loginUser.userNo}}">
+<div id="main1">
+    <form id="search" action="/userList" method="get">
+        <input type="text" name="searchValue" value="" style="width: 300px; height: 30px">
+        <input type="submit" value="검색">
+    </form>
+    <br>
+    <h5>검색 목록</h5> <br>
+    <div id="user-list">
+        <table class="table" style="color: #b6b6b6">
+            <tr>
+                <th>아이디</th>
+                <th>이름</th>
+                <th>팔로우</th>
+            </tr>
+            {{#user}}
+                <tr id="user-tr">
+                    <input type="hidden" id="followNo" value="{{userNo}}" >
+                    <td id="followId">{{userId}}</td>
+                    <td>{{userName}}</td>
+                    {{#userNo_F}}
+                        <td><input type="button" id="follow-btn" value="팔로잉" style="background-color: #4b4b4b"></td>
+                    {{/userNo_F}}
+                    {{^userNo_F}}
+                        <td><input type="button" id="follow-btn" value="팔로우" onclick="followUserFunc(this)"></td>
+                    {{/userNo_F}}
+                </tr>
+            {{/user}}
+        </table>
+    </div>
+</div>
+
+<div id="button-area">
+    <p id="input"><input type="button" value="닫기" onclick="self.close()"></p>
+</div>
+
+<script>
+    function followUserFunc(obj) {
+        console.log($(obj).parent().siblings('#followNo'));
+
+        const followData = {
+            "followNo" : parseInt($(obj).parent().siblings('#followNo').val()),
+            "userNo" : parseInt($('#userNo').val())
+        };
+        $.ajax(
+                {
+                    type: "POST",
+                    url: "/ajaxFollowUser",
+                    data: followData,
+                    success: function (data) {
+                        $(obj).val('팔로잉');
+                        $(obj).css("background",'gray');
+                        $(obj).attr("disabled", true);
+                    }
+                }
+        )
+    }
+</script>
+</body>
+</html>
