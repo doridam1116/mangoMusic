@@ -5,7 +5,7 @@ SemiProject
 망고뮤직(Mango Music)은 음악을 듣는 것을 넘어 구매하여 소유하는 개념에서 출발한 프로젝트 입니다.
 뮤직 플레이어 + 소유권 판매, 구매 플랫폼
 
-### 기능 요약
+### :cloud:기능 요약
 1. 웹사이트 이용자는 듣고 싶은 음원을 찾아 음원 스트리밍 서비스를 이용할 수 있습니다.
 2. 이용자는 거래소 통하여 자신이 가지고 있는 음원을 올릴 수 있고, 망고뮤직의 망고 포인트를 통하여 판매 또는 구매 할 수 있습니다.
 
@@ -18,11 +18,11 @@ SemiProject
 - 정기진
 - 황세원
 
-### 기술
+### :smoking:기술
 - IntelliJ, HTML, CSS, JavaScript, mustache, Ajax, jQuery
 - Spring Boot, Oracle,
 
-### 주요 기능
+### :clipboard:주요 기능
 회원관리
 |기능명|상세|
 |------|---|
@@ -71,7 +71,8 @@ SemiProject
 1. index
 ![인덱스](https://user-images.githubusercontent.com/119032790/227850509-e7531660-d7f0-4b6d-b356-68b3e79fed7c.png)
 
-####회원
+#### 회원
+
 2. 로그인
 ![로그인](https://user-images.githubusercontent.com/119032790/227850255-4e8cf8de-6fe3-4212-a853-8f41ee95ae85.png)
 
@@ -110,12 +111,12 @@ SemiProject
 ![음원 검색](https://user-images.githubusercontent.com/119032790/227851768-eee96e25-0738-4c93-b26c-30e7953a9ce9.png)
 
 
-관리자
+#### 관리자
 
 1. 회원 목록 & 상세정보
 ![관리자페이지 회원목록 상세정보](https://user-images.githubusercontent.com/119032790/227851864-b1baac82-0b16-46dc-9ac5-2a0410ea441f.png)
 
-2. 회원 포인트 관
+2. 회원 포인트 관리
 ![포인트 관리](https://user-images.githubusercontent.com/119032790/227851912-e2805f48-5c6d-4b9d-80bf-e868c3107d99.png)
 
 
