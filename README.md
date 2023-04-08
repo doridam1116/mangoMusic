@@ -22,7 +22,7 @@ SemiProject
 - IntelliJ, HTML, CSS, JavaScript, mustache, Ajax, jQuery
 - Spring Boot, Oracle,
 
-### : ERD
+### :floppy_disk: ERD
 ![image](https://user-images.githubusercontent.com/108416216/230706540-8ef834fe-8464-45cf-bc58-f99a0ca9e357.png)
 
 
